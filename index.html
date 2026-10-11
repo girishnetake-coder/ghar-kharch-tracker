@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>घरखर्च वही</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:'Noto Sans Devanagari','Segoe UI',Roboto,sans-serif;background:#eef1f6;color:#1b1b1b;padding-bottom:50px}
+header{background:linear-gradient(135deg,#1e88e5,#0d47a1);color:#fff;padding:14px;text-align:center;font-size:20px;font-weight:700;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.monthbar{display:flex;align-items:center;justify-content:space-between;background:#fff;padding:10px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);position:sticky;top:52px;z-index:19}
+.monthbar span{font-weight:700;font-size:17px;color:#0d47a1}
+.monthbar button{border:none;background:#e3f2fd;color:#0d47a1;font-size:18px;width:38px;height:38px;border-radius:50%;cursor:pointer;font-weight:700}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.card{background:#fff;border-radius:14px;padding:12px;box-shadow:0 2px 6px rgba(0,0,0,.07)}
+.card .lbl{font-size:12px;color:#666;margin-bottom:4px}
+.card .val{font-size:20px;font-weight:800}
+.card.full{grid-column:1/-1;background:linear-gradient(135deg,#43a047,#1b5e20);color:#fff}
+.card.full .lbl{color:#d7f5d9}
+.card.full .val{font-size:26px}
+.green{color:#2e7d32}.red{color:#c62828}.blue{color:#1565c0}
+.section{background:#fff;margin:12px;border-radius:14px;padding:14px;box-shadow:0 2px 6px rgba(0,0,0,.07)}
+.section h3{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.row{display:flex;gap:8px;margin-bottom:10px}
+input{flex:1;min-width:0;padding:12px;border:1.5px solid #cfd8dc;border-radius:10px;font-size:16px;font-family:inherit;background:#fafbfc}
+input:focus{outline:none;border-color:#1e88e5;background:#fff}
+input.amt{flex:0 0 110px;text-align:right;font-weight:700}
+.mic{flex:0 0 48px;border:none;border-radius:10px;background:#fff3e0;color:#e65100;font-size:20px;cursor:pointer;border:1.5px solid #ffcc80}
+.mic.rec{background:#ff5252;color:#fff;border-color:#ff5252;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+.btn{width:100%;padding:13px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-add{background:#1e88e5;color:#fff}
+.btn-add:active{background:#1565c0}
+.btn-big{background:linear-gradient(135deg,#fb8c00,#e65100);color:#fff;font-size:17px;padding:16px;margin:0 12px;width:calc(100% - 24px);border-radius:14px;box-shadow:0 4px 12px rgba(230,81,0,.35)}
+ul.list{list-style:none;margin:10px 0 0;padding:0;max-height:230px;overflow-y:auto}
+ul.list li{display:flex;align-items:center;gap:8px;padding:9px 4px;border-bottom:1px solid #f0f0f0;font-size:15px}
+ul.list li:last-child{border-bottom:none}
+.nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dt{font-size:11px;color:#999;margin-right:4px}
+.am{font-weight:700;white-space:nowrap}
+.del{border:none;background:none;color:#ef9a9a;font-size:19px;cursor:pointer;padding:0 4px}
+.empty{text-align:center;color:#aaa;font-size:14px;padding:14px}
+#todayPanel{display:none;margin:12px;background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.12);border-top:5px solid #fb8c00}
+#todayPanel h3{margin:0 0 12px;font-size:17px;color:#e65100}
+.sumrow{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px dashed #e0e0e0;font-size:16px}
+.sumrow:last-child{border-bottom:none}
+.sumrow b{font-size:18px}
+.big-bal{background:#e8f5e9;border-radius:10px;padding:14px;text-align:center;margin-top:10px}
+.big-bal .l{font-size:13px;color:#555}
+.big-bal .v{font-size:30px;font-weight:900;color:#1b5e20}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:12px 22px;border-radius:30px;font-size:15px;opacity:0;transition:.3s;pointer-events:none;z-index:99;white-space:nowrap;max-width:90%}
+.toast.show{opacity:1;bottom:40px}
+.hint{font-size:12px;color:#888;margin-top:6px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<header>🏠 घरखर्च वही</header>
+
+<div class="monthbar">
+  <button onclick="changeMonth(-1)">◀</button>
+  <span id="monthLabel">—</span>
+  <button onclick="changeMonth(1)">▶</button>
+</div>
+
+<div class="cards">
+  <div class="card"><div class="lbl">एकूण जमा</div><div class="val green" id="cIncome">₹0</div></div>
+  <div class="card"><div class="lbl">एकूण खर्च</div><div class="val red" id="cExpense">₹0</div></div>
+  <div class="card full"><div class="lbl">शिल्लक रक्कम</div><div class="val" id="cBalance">₹0</div></div>
+</div>
+
+<!-- जमा -->
+<div class="section">
+  <h3><span class="dot" style="background:#43a047"></span> जमा (पगार / उत्पन्न)</h3>
+  <div class="row">
+    <input id="incName" placeholder="तपशील (उदा. पगार)">
+    <button class="mic" onclick="startVoice('incName',null)">🎤</button>
+  </div>
+  <div class="row">
+    <input id="incAmt" class="amt" type="number" inputmode="numeric" placeholder="रक्कम">
+    <button class="mic" onclick="startVoice('incAmt',true)">🎤</button>
+  </div>
+  <button class="btn btn-add" onclick="addEntry('income')">➕ जमा करा</button>
+  <ul class="list" id="incList"></ul>
+</div>
+
+<!-- खर्च -->
+<div class="section">
+  <h3><span class="dot" style="background:#e53935"></span> रोजचा खर्च</h3>
+  <div class="row">
+    <input id="expName" placeholder="तपशील (उदा. भाजी)">
+    <button class="mic" onclick="startVoice('expName',null)">🎤</button>
+  </div>
+  <div class="row">
+    <input id="expAmt" class="amt" type="number" inputmode="numeric" placeholder="रक्कम">
+    <button class="mic" onclick="startVoice('expAmt',true)">🎤</button>
+  </div>
+  <button class="btn btn-add" onclick="addEntry('expense')">➕ खर्च नोंदवा</button>
+  <ul class="list" id="expList"></ul>
+</div>
+
+<!-- आजचा हिशोब -->
+<button class="btn btn-big" onclick="showToday()">🧮 आजचा हिशोब पहा</button>
+
+<div id="todayPanel">
+  <h3 id="tpDate"></h3>
+  <div id="tpList"></div>
+  <div class="sumrow"><span>आजचा एकूण खर्च</span><b class="red" id="tpToday">₹0</b></div>
+  <div class="sumrow"><span>या महिन्याचा एकूण खर्च</span><b class="red" id="tpMonth">₹0</b></div>
+  <div class="big-bal">
+    <div class="l">आजचा खर्च वजा केल्यावर शिल्लक</div>
+    <div class="v" id="tpBal">₹0</div>
+  </div>
+</div>
+
+<div class="hint" style="padding:0 16px 20px">
+  टीप : 🎤 बटण दाबून मराठीत बोला — “भाजी पाचशे” असे बोलल्यास आकडे व शब्द आपोआप भरले जातील. डेटा फोनमध्येच सुरक्षित राहतो.
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- डेटा ---------- */
+const KEY='gharkharch_v1';
+let db = JSON.parse(localStorage.getItem(KEY) || '{"months":{}}');
+const MN=['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'];
+
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));}
+function mdata(m){if(!db.months[m])db.months[m]={income:[],expense:[]};return db.months[m];}
+function money(n){return '₹'+Number(n||0).toLocaleString('en-IN');}
+function fmtDate(s){const[y,m,d]=s.split('-');return d+'/'+m;}
+
+let curMonth = todayStr().slice(0,7);
+
+/* ---------- रेंडर ---------- */
+function render(){
+  const[y,m]=curMonth.split('-');
+  document.getElementById('monthLabel').textContent = MN[+m-1]+' '+y;
+
+  const d = mdata(curMonth);
+  const inc = d.income.reduce((s,x)=>s+x.amt,0);
+  const exp = d.expense.reduce((s,x)=>s+x.amt,0);
+  document.getElementById('cIncome').textContent = money(inc);
+  document.getElementById('cExpense').textContent = money(exp);
+  document.getElementById('cBalance').textContent = money(inc-exp);
+
+  drawList('incList', d.income, 'income', '#2e7d32');
+  drawList('expList', d.expense, 'expense', '#c62828');
+  save();
+}
+
+function drawList(id, arr, type, color){
+  const ul=document.getElementById(id);
+  if(!arr.length){ul.innerHTML='<div class="empty">अजून नोंद नाही</div>';return;}
+  const sorted=[...arr].sort((a,b)=>b.ts-a.ts);
+  ul.innerHTML = sorted.map(x=>`
+    <li>
+      <span class="dt">${fmtDate(x.date)}</span>
+      <span class="nm">${esc(x.name)}</span>
+      <span class="am" style="color:${color}">${money(x.amt)}</span>
+      <button class="del" onclick="delEntry('${type}','${x.id}')">✕</button>
+    </li>`).join('');
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+/* ---------- नोंद ---------- */
+function addEntry(type){
+  const nEl = document.getElementById(type==='income'?'incName':'expName');
+  const aEl = document.getElementById(type==='income'?'incAmt':'expAmt');
+  const name = nEl.value.trim();
+  const amt = parseFloat(aEl.value);
+
+  if(!name){toast('तपशील लिहा किंवा बोला');return;}
+  if(!amt || amt<=0){toast('रक्कम टाका किंवा बोला');return;}
+
+  mdata(curMonth)[type].push({
+    id: Date.now()+''+Math.floor(Math.random()*999),
+    name, amt, date: todayStr(), ts: Date.now()
+  });
+  nEl.value=''; aEl.value='';
+  render();
+  toast(type==='income' ? '✅ जमा झाले' : '✅ खर्च नोंदवला');
+  nEl.focus();
+}
+
+function delEntry(type,id){
+  const d=mdata(curMonth);
+  d[type] = d[type].filter(x=>x.id!==id);
+  render();
+  toast('हटवले');
+}
+
+/* ---------- महिना बदल ---------- */
+function changeMonth(step){
+  let[y,m]=curMonth.split('-').map(Number);
+  m+=step;
+  if(m<1){m=12;y--;} if(m>12){m=1;y++;}
+  curMonth = y+'-'+String(m).padStart(2,'0');
+  document.getElementById('todayPanel').style.display='none';
+  render();
+}
+
+/* ---------- आजचा हिशोब ---------- */
+function showToday(){
+  const t = todayStr();
+  const d = mdata(curMonth);
+  const todayExp = d.expense.filter(x=>x.date===t);
+  const todayTotal = todayExp.reduce((s,x)=>s+x.amt,0);
+  const monthExp = d.expense.reduce((s,x)=>s+x.amt,0);
+  const inc = d.income.reduce((s,x)=>s+x.amt,0);
+  const bal = inc - monthExp;
+
+  const dd = new Date();
+  document.getElementById('tpDate').textContent =
+    '📅 '+dd.getDate()+' '+MN[dd.getMonth()]+' '+dd.getFullYear();
+
+  const box=document.getElementById('tpList');
+  if(!todayExp.length){
+    box.innerHTML='<div class="empty">आज अजून खर्च नोंदवलेला नाही</div>';
+  }else{
+    box.innerHTML = todayExp.map(x=>`
+      <div class="sumrow"><span>${esc(x.name)}</span><b class="red">${money(x.amt)}</b></div>
+    `).join('');
+  }
+  document.getElementById('tpToday').textContent = money(todayTotal);
+  document.getElementById('tpMonth').textContent = money(monthExp);
+  document.getElementById('tpBal').textContent = money(bal);
+
+  const p=document.getElementById('todayPanel');
+  p.style.display='block';
+  p.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* ---------- मराठी अंक ओळख ---------- */
+const NUM={
+ 'एक':1,'दोन':2,'तीन':3,'चार':4,'पाच':5,'सहा':6,'सात':7,'आठ':8,'नऊ':9,'दहा':10,
+ 'अकरा':11,'बारा':12,'तेरा':13,'चौदा':14,'पंधरा':15,'सोळा':16,'सतरा':17,'अठरा':18,'एकोणीस':19,'वीस':20,
+ 'एकवीस':21,'बावीस':22,'तेवीस':23,'चोवीस':24,'पंचवीस':25,'सव्वीस':26,'सत्तावीस':27,'अठ्ठावीस':28,'एकोणतीस':29,
+ 'तीस':30,'एकतीस':31,'बत्तीस':32,'तेहतीस':33,'चौतीस':34,'पस्तीस':35,'छत्तीस':36,'सदतीस':37,'अडतीस':38,'एकोणचाळीस':39,
+ 'चाळीस':40,'एकचाळीस':41,'बेचाळीस':42,'तेचाळीस':43,'चव्वेचाळीस':44,'पंचेचाळीस':45,'सेहेचाळीस':46,'सत्तेचाळीस':47,'अठ्ठेचाळीस':48,'एकोणपन्नास':49,
+ 'पन्नास':50,'साठ':60,'सत्तर':70,'ऐंशी':80,'नव्वद':90,
+ 'शंभर':100,'शे':100,'शेकडा':100,'हजार':1000,'लाख':100000
+};
+
+function parseMarathiNumber(text){
+  const dig = text.match(/\d+/);
+  if(dig) return parseInt(dig[0]);
+
+  let t = ' '+text.replace(/शे/g,' शे ').replace(/शंभर/g,' शंभर ')+' ';
+  const tokens = t.split(/\s+/).filter(Boolean);
+  let total=0, cur=0, found=false;
+
+  for(const tok of tokens){
+    const v = NUM[tok];
+    if(v===undefined) continue;
+    found=true;
+    if(v>=1000){ cur=(cur||1)*v; total+=cur; cur=0; }
+    else if(v===100){ cur=(cur||1)*100; }
+    else { cur+=v; }
+  }
+  total+=cur;
+  return found ? total : null;
+}
+
+/* ---------- आवाज ओळख ---------- */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec=null, recBtn=null;
+
+function startVoice(fieldId, isNumber){
+  if(!SR){ toast('या ब्राउझरमध्ये आवाज सुविधा नाही. Chrome वापरा.'); return; }
+
+  if(rec){ try{rec.stop();}catch(e){} }
+
+  rec = new SR();
+  rec.lang = 'mr-IN';
+  rec.interimResults = false;
+  rec.maxAlternatives = 1;
+
+  const btn = event.target;
+  btn.classList.add('rec');
+
+  rec.onresult = (e)=>{
+    const txt = e.results[0][0].transcript.trim();
+    const el = document.getElementById(fieldId);
+
+    if(isNumber){
+      const num = parseMarathiNumber(txt);
+      if(num){ el.value = num; toast('🔢 '+num); }
+      else { toast('आकडा ओळखता आला नाही: '+txt); }
+    } else {
+      el.value = txt;
+      toast('✔ '+txt);
+      // जर तपशीलात आकडा असेल तर रक्कमेच्या खासगीत टाका
+      const num = parseMarathiNumber(txt);
+      if(num){
+        const amtField = fieldId==='incName' ? 'incAmt' : 'expAmt';
+        const amtEl = document.getElementById(amtField);
+        if(!amtEl.value){ amtEl.value = num; }
+      }
+    }
+  };
+
+  rec.onerror = ()=>{ toast('आवाज ऐकू आला नाही, पुन्हा प्रयत्न करा'); };
+  rec.onend = ()=>{ btn.classList.remove('rec'); };
+
+  btn.classList.remove('rec');
+  setTimeout(()=>btn.classList.add('rec'),10);
+  rec.start();
+  toast('🎤 बोला...');
+}
+
+/* ---------- टोस्ट ---------- */
+let toastT=null;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.classList.add('show');
+  clearTimeout(toastT);
+  toastT=setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+/* ---------- सुरू ---------- */
+render();
+</script>
+</body>
+</html>
