@@ -18,7 +18,7 @@ header{background:linear-gradient(135deg,#1e88e5,#0d47a1);color:#fff;padding:14p
 .card.full{grid-column:1/-1;background:linear-gradient(135deg,#43a047,#1b5e20);color:#fff}
 .card.full .lbl{color:#d7f5d9}
 .card.full .val{font-size:26px}
-.green{color:#2e7d32}.red{color:#c62828}.blue{color:#1565c0}
+.green{color:#2e7d32}.red{color:#c62828}.blue{color:#1565c0}.orange{color:#e65100}
 .section{background:#fff;margin:12px;border-radius:14px;padding:14px;box-shadow:0 2px 6px rgba(0,0,0,.07)}
 .section h3{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:8px}
 .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
@@ -49,6 +49,22 @@ ul.list li:last-child{border-bottom:none}
 .big-bal{background:#e8f5e9;border-radius:10px;padding:14px;text-align:center;margin-top:10px}
 .big-bal .l{font-size:13px;color:#555}
 .big-bal .v{font-size:30px;font-weight:900;color:#1b5e20}
+/* देणे बाकी स्टाईल */
+.loan{background:#fff8e1;border-radius:12px;padding:12px;margin-bottom:10px;border-left:4px solid #ff9800}
+.loan .lname{font-weight:800;font-size:16px;color:#4e342e;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.loan .lname .del{color:#e57373}
+.lrow{display:flex;justify-content:space-between;font-size:14px;padding:3px 0}
+.lrow b{font-weight:700}
+.lbal{background:#fff3e0;border-radius:8px;padding:8px 10px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.lbal b{font-size:18px;color:#e65100}
+.payrow{display:flex;gap:6px;margin-top:8px}
+.payrow input{flex:1;padding:8px;font-size:14px}
+.payrow button{background:#ff9800;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-weight:700;font-size:14px;font-family:inherit;cursor:pointer}
+.payrow button:active{background:#e65100}
+.paylog{font-size:12px;color:#666;margin-top:6px;max-height:80px;overflow-y:auto}
+.paylog div{padding:2px 0;border-bottom:1px dotted #eee}
+.progress{height:6px;background:#ffe0b2;border-radius:3px;margin-top:6px;overflow:hidden}
+.progress div{height:100%;background:#4caf50;transition:width .3s}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:12px 22px;border-radius:30px;font-size:15px;opacity:0;transition:.3s;pointer-events:none;z-index:99;white-space:nowrap;max-width:90%}
 .toast.show{opacity:1;bottom:40px}
 .hint{font-size:12px;color:#888;margin-top:6px;line-height:1.5}
@@ -68,6 +84,21 @@ ul.list li:last-child{border-bottom:none}
   <div class="card"><div class="lbl">एकूण जमा</div><div class="val green" id="cIncome">₹0</div></div>
   <div class="card"><div class="lbl">एकूण खर्च</div><div class="val red" id="cExpense">₹0</div></div>
   <div class="card full"><div class="lbl">शिल्लक रक्कम</div><div class="val" id="cBalance">₹0</div></div>
+</div>
+
+<!-- देणे बाकी -->
+<div class="section" id="loanSection">
+  <h3><span class="dot" style="background:#ff9800"></span> देणे बाकी (उधार)</h3>
+  <div class="row">
+    <input id="loanName" placeholder="कोणाला द्यायचे? (उदा. रमेशभाई)">
+    <button class="mic" onclick="startVoice('loanName',null)">🎤</button>
+  </div>
+  <div class="row">
+    <input id="loanAmt" class="amt" type="number" inputmode="numeric" placeholder="एकूण रक्कम">
+    <button class="mic" onclick="startVoice('loanAmt',true)">🎤</button>
+  </div>
+  <button class="btn btn-add" onclick="addLoan()">➕ देणे नोंदवा</button>
+  <div id="loanList" style="margin-top:10px"></div>
 </div>
 
 <!-- जमा -->
@@ -123,7 +154,8 @@ ul.list li:last-child{border-bottom:none}
 <script>
 /* ---------- डेटा ---------- */
 const KEY='gharkharch_v1';
-let db = JSON.parse(localStorage.getItem(KEY) || '{"months":{}}');
+let db = JSON.parse(localStorage.getItem(KEY) || '{"months":{},"loans":[]}');
+if(!db.loans) db.loans=[];
 const MN=['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'];
 
 function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
@@ -133,6 +165,87 @@ function money(n){return '₹'+Number(n||0).toLocaleString('en-IN');}
 function fmtDate(s){const[y,m,d]=s.split('-');return d+'/'+m;}
 
 let curMonth = todayStr().slice(0,7);
+
+/* ---------- देणे बाकी ---------- */
+function addLoan(){
+  const nEl=document.getElementById('loanName');
+  const aEl=document.getElementById('loanAmt');
+  const name=nEl.value.trim();
+  const amt=parseFloat(aEl.value);
+  if(!name){toast('नाव लिहा किंवा बोला');return;}
+  if(!amt||amt<=0){toast('रक्कम टाका किंवा बोला');return;}
+  db.loans.push({
+    id:Date.now()+''+Math.floor(Math.random()*999),
+    name, total:amt, payments:[], created:todayStr(), ts:Date.now()
+  });
+  nEl.value=''; aEl.value='';
+  renderLoans(); save();
+  toast('✅ देणे नोंदवले');
+}
+
+function payLoan(id){
+  const input=document.getElementById('pay_'+id);
+  const amt=parseFloat(input.value);
+  if(!amt||amt<=0){toast('रक्कम टाका');return;}
+  const loan=db.loans.find(l=>l.id===id);
+  if(!loan) return;
+  const paid=loan.payments.reduce((s,p)=>s+p.amt,0);
+  const remain=loan.total-paid;
+  if(amt>remain){
+    if(!confirm('शिल्लक पेक्षा जास्त रक्कम आहे. तरी नोंदवायचे?')) return;
+  }
+  loan.payments.push({amt, date:todayStr(), ts:Date.now()});
+  input.value='';
+  renderLoans(); save();
+  toast('✅ '+money(amt)+' दिले');
+}
+
+function delLoan(id){
+  if(!confirm('ही नोंद कायमची हटवायची?')) return;
+  db.loans=db.loans.filter(l=>l.id!==id);
+  renderLoans(); save();
+  toast('हटवले');
+}
+
+function renderLoans(){
+  const box=document.getElementById('loanList');
+  // फक्त ज्यांचे देणे शिल्लक आहे ते दाखवा
+  const pending=db.loans.filter(l=>{
+    const paid=l.payments.reduce((s,p)=>s+p.amt,0);
+    return (l.total-paid)>0.001;
+  }).sort((a,b)=>a.ts-b.ts);
+
+  if(!pending.length){
+    box.innerHTML='<div class="empty">सध्या कोणतेही देणे बाकी नाही 🎉</div>';
+    return;
+  }
+
+  box.innerHTML = pending.map(l=>{
+    const paid=l.payments.reduce((s,p)=>s+p.amt,0);
+    const remain=l.total-paid;
+    const pct=Math.min(100,(paid/l.total)*100);
+    const log = l.payments.length
+      ? '<div class="paylog">'+l.payments.slice().reverse().map(p=>
+          '<div>'+fmtDate(p.date)+' — '+money(p.amt)+'</div>').join('')+'</div>'
+      : '';
+    return `
+      <div class="loan">
+        <div class="lname">
+          <span>👤 ${esc(l.name)}</span>
+          <button class="del" onclick="delLoan('${l.id}')">✕</button>
+        </div>
+        <div class="lrow"><span>एकूण देणे:</span><b>${money(l.total)}</b></div>
+        <div class="lrow"><span>आतापर्यंत दिले:</span><b class="green">${money(paid)}</b></div>
+        <div class="progress"><div style="width:${pct}%"></div></div>
+        <div class="lbal"><span>शिल्लक:</span><b>${money(remain)}</b></div>
+        <div class="payrow">
+          <input id="pay_${l.id}" type="number" inputmode="numeric" placeholder="आता दिलेली रक्कम">
+          <button onclick="payLoan('${l.id}')">दिले</button>
+        </div>
+        ${log}
+      </div>`;
+  }).join('');
+}
 
 /* ---------- रेंडर ---------- */
 function render(){
@@ -148,6 +261,7 @@ function render(){
 
   drawList('incList', d.income, 'income', '#2e7d32');
   drawList('expList', d.expense, 'expense', '#c62828');
+  renderLoans();
   save();
 }
 
@@ -266,7 +380,7 @@ function parseMarathiNumber(text){
 
 /* ---------- आवाज ओळख ---------- */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-let rec=null, recBtn=null;
+let rec=null;
 
 function startVoice(fieldId, isNumber){
   if(!SR){ toast('या ब्राउझरमध्ये आवाज सुविधा नाही. Chrome वापरा.'); return; }
@@ -292,12 +406,15 @@ function startVoice(fieldId, isNumber){
     } else {
       el.value = txt;
       toast('✔ '+txt);
-      // जर तपशीलात आकडा असेल तर रक्कमेच्या खासगीत टाका
       const num = parseMarathiNumber(txt);
       if(num){
-        const amtField = fieldId==='incName' ? 'incAmt' : 'expAmt';
-        const amtEl = document.getElementById(amtField);
-        if(!amtEl.value){ amtEl.value = num; }
+        const amtField = fieldId==='incName' ? 'incAmt' :
+                         fieldId==='expName' ? 'expAmt' :
+                         fieldId==='loanName' ? 'loanAmt' : null;
+        if(amtField){
+          const amtEl = document.getElementById(amtField);
+          if(!amtEl.value){ amtEl.value = num; }
+        }
       }
     }
   };
