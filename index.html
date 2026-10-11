@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="mr">
 <head>
@@ -49,7 +50,6 @@ ul.list li:last-child{border-bottom:none}
 .big-bal{background:#e8f5e9;border-radius:10px;padding:14px;text-align:center;margin-top:10px}
 .big-bal .l{font-size:13px;color:#555}
 .big-bal .v{font-size:30px;font-weight:900;color:#1b5e20}
-/* देणे बाकी स्टाईल */
 .loan{background:#fff8e1;border-radius:12px;padding:12px;margin-bottom:10px;border-left:4px solid #ff9800}
 .loan .lname{font-weight:800;font-size:16px;color:#4e342e;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
 .loan .lname .del{color:#e57373}
@@ -65,6 +65,12 @@ ul.list li:last-child{border-bottom:none}
 .paylog div{padding:2px 0;border-bottom:1px dotted #eee}
 .progress{height:6px;background:#ffe0b2;border-radius:3px;margin-top:6px;overflow:hidden}
 .progress div{height:100%;background:#4caf50;transition:width .3s}
+/* बॅकअप विभाग */
+.backup-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.btn-backup{background:#00acc1;color:#fff;padding:14px;border:none;border-radius:10px;font-weight:700;font-size:15px;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-backup:active{background:#00838f}
+.btn-restore{background:#7cb342;color:#fff;padding:14px;border:none;border-radius:10px;font-weight:700;font-size:15px;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-restore:active{background:#558b2f}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:12px 22px;border-radius:30px;font-size:15px;opacity:0;transition:.3s;pointer-events:none;z-index:99;white-space:nowrap;max-width:90%}
 .toast.show{opacity:1;bottom:40px}
 .hint{font-size:12px;color:#888;margin-top:6px;line-height:1.5}
@@ -84,6 +90,17 @@ ul.list li:last-child{border-bottom:none}
   <div class="card"><div class="lbl">एकूण जमा</div><div class="val green" id="cIncome">₹0</div></div>
   <div class="card"><div class="lbl">एकूण खर्च</div><div class="val red" id="cExpense">₹0</div></div>
   <div class="card full"><div class="lbl">शिल्लक रक्कम</div><div class="val" id="cBalance">₹0</div></div>
+</div>
+
+<!-- बॅकअप विभाग -->
+<div class="section">
+  <h3><span class="dot" style="background:#00acc1"></span> डेटा बॅकअप / परत आणा</h3>
+  <div class="backup-grid">
+    <button class="btn-backup" onclick="backupData()">💾 बॅकअप घ्या</button>
+    <button class="btn-restore" onclick="document.getElementById('restoreFile').click()">📂 डेटा परत आणा</button>
+  </div>
+  <input type="file" id="restoreFile" accept=".json,application/json" style="display:none" onchange="restoreData(event)">
+  <div class="hint">बॅकअप फाईल Downloads मध्ये सेव्ह होईल. Chrome चा डेटा गेला तरी ही फाईल परत अपलोड करून सर्व नोंदी परत मिळतील. फाईल WhatsApp किंवा Google Drive वर पाठवून ठेवा.</div>
 </div>
 
 <!-- देणे बाकी -->
@@ -156,6 +173,7 @@ ul.list li:last-child{border-bottom:none}
 const KEY='gharkharch_v1';
 let db = JSON.parse(localStorage.getItem(KEY) || '{"months":{},"loans":[]}');
 if(!db.loans) db.loans=[];
+if(!db.months) db.months={};
 const MN=['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'];
 
 function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
@@ -165,6 +183,49 @@ function money(n){return '₹'+Number(n||0).toLocaleString('en-IN');}
 function fmtDate(s){const[y,m,d]=s.split('-');return d+'/'+m;}
 
 let curMonth = todayStr().slice(0,7);
+
+/* ---------- बॅकअप / रिस्टोर ---------- */
+function backupData(){
+  const dataStr = JSON.stringify(db, null, 2);
+  const blob = new Blob([dataStr], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const d = new Date();
+  const fname = 'gharkharch-backup-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.json';
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fname;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  toast('💾 बॅकअप फाईल Downloads मध्ये सेव्ह झाली');
+}
+
+function restoreData(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try {
+      const parsed = JSON.parse(e.target.result);
+      if(!parsed.months && !parsed.loans){
+        toast('❌ चुकीची फाईल आहे');
+        return;
+      }
+      if(!confirm('सध्याचा डेटा बदलून बॅकअपमधील डेटा परत आणायचा? सध्याचा डेटा हटवला जाईल.')) return;
+      db = parsed;
+      if(!db.months) db.months={};
+      if(!db.loans) db.loans=[];
+      save();
+      render();
+      toast('✅ डेटा यशस्वीरित्या परत आणला');
+    } catch(err){
+      toast('❌ फाईल वाचता आली नाही');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
 
 /* ---------- देणे बाकी ---------- */
 function addLoan(){
@@ -209,7 +270,6 @@ function delLoan(id){
 
 function renderLoans(){
   const box=document.getElementById('loanList');
-  // फक्त ज्यांचे देणे शिल्लक आहे ते दाखवा
   const pending=db.loans.filter(l=>{
     const paid=l.payments.reduce((s,p)=>s+p.amt,0);
     return (l.total-paid)>0.001;
