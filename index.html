@@ -45,6 +45,8 @@ input.amt{flex:0 0 110px;text-align:right;font-weight:800}
 .btn{width:100%;padding:14px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:.3px;transition:.12s}
 .btn-add{background:linear-gradient(145deg,#42a5f5,#1565c0);color:#fff;box-shadow:0 5px 14px rgba(21,101,192,.4), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 6px rgba(0,0,0,.2);text-shadow:0 1px 2px rgba(0,0,0,.3)}
 .btn-add:active{transform:translateY(3px);box-shadow:0 1px 4px rgba(21,101,192,.4), inset 0 3px 6px rgba(0,0,0,.25)}
+.btn-preview{background:linear-gradient(145deg,#26a69a,#00695c);color:#fff;box-shadow:0 5px 14px rgba(0,105,92,.4), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 6px rgba(0,0,0,.2);text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.btn-preview:active{transform:translateY(3px);box-shadow:0 1px 4px rgba(0,105,92,.4), inset 0 3px 6px rgba(0,0,0,.25)}
 .btn-big{background:linear-gradient(145deg,#ffa726,#e65100);color:#fff;font-size:17px;padding:17px;margin:0 14px;width:calc(100% - 28px);border-radius:16px;box-shadow:0 7px 20px rgba(230,81,0,.45), inset 0 2px 0 rgba(255,255,255,.3), inset 0 -4px 8px rgba(0,0,0,.25);text-shadow:0 2px 3px rgba(0,0,0,.3);font-weight:800;letter-spacing:.5px}
 .btn-big:active{transform:translateY(4px);box-shadow:0 2px 6px rgba(230,81,0,.45), inset 0 4px 8px rgba(0,0,0,.3)}
 ul.list{list-style:none;margin:10px 0 0;padding:0;max-height:250px;overflow-y:auto}
@@ -111,6 +113,17 @@ ul.list li:last-child{border-bottom:none}
 .mem-bar.danger div{background:linear-gradient(145deg,#ef5350,#b71c1c)}
 .btn-reset{background:linear-gradient(145deg,#ef5350,#b71c1c);color:#fff;width:100%;padding:16px;border:none;border-radius:14px;font-size:16px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:.5px;margin-top:12px;box-shadow:0 7px 20px rgba(183,28,28,.5), inset 0 2px 0 rgba(255,255,255,.3), inset 0 -4px 8px rgba(0,0,0,.3);text-shadow:0 2px 3px rgba(0,0,0,.35);transition:.12s}
 .btn-reset:active{transform:translateY(4px);box-shadow:0 2px 6px rgba(183,28,28,.5), inset 0 4px 8px rgba(0,0,0,.35)}
+
+/* निवडक डिलीट */
+.preview-box{background:linear-gradient(145deg,#e0f2f1,#b2dfdb);border-radius:12px;padding:14px;margin-top:12px;box-shadow:inset 0 2px 6px rgba(0,0,0,.1), 0 3px 10px rgba(0,105,92,.15);border-left:5px solid #00897b;display:none}
+.preview-box.show{display:block}
+.preview-box h4{margin:0 0 10px;font-size:15px;color:#004d40;font-weight:900}
+.pv-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;border-bottom:1px dashed rgba(0,77,64,.2)}
+.pv-row:last-child{border-bottom:none}
+.pv-row b{font-weight:800;color:#004d40}
+.btn-confirm-del{background:linear-gradient(145deg,#d32f2f,#b71c1c);color:#fff;width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:.4px;margin-top:12px;box-shadow:0 6px 16px rgba(183,28,28,.45), inset 0 2px 0 rgba(255,255,255,.25), inset 0 -3px 6px rgba(0,0,0,.25);text-shadow:0 1px 2px rgba(0,0,0,.3);transition:.12s}
+.btn-confirm-del:active{transform:translateY(3px);box-shadow:0 1px 4px rgba(183,28,28,.45), inset 0 3px 6px rgba(0,0,0,.3)}
+
 footer{margin:20px 14px 10px;padding:16px;text-align:center;background:linear-gradient(145deg,#f5f8fc,#e8eef7);border-radius:14px;box-shadow:inset 0 2px 5px rgba(0,0,0,.06), inset 0 -1px 0 #fff;border:1px solid rgba(255,255,255,.9)}
 footer .fname{font-size:12px;color:#555;font-weight:600;letter-spacing:.3px;line-height:1.7}
 footer .fname b{color:#0d47a1;font-weight:800}
@@ -277,17 +290,40 @@ footer .fname b{color:#0d47a1;font-weight:800}
   </div>
 </div>
 
-<!-- 🧠 मेमरी आणि रिसेट - सर्वात खाली -->
+<!-- 🗑️ निवडक डिलीट विभाग -->
+<div class="section">
+  <h3><span class="dot" style="background:#00897b"></span> 🗑️ निवडक तारखेपूर्वीचा डेटा डिलीट करा</h3>
+  <div class="hint" style="margin-bottom:10px;font-style:normal">जुना डेटा हटवायचा आहे? फक्त तारीख निवडा — त्यापूर्वीच्या सर्व नोंदी हटतील. नवीन डेटा सुरक्षित राहील.</div>
+
+  <div class="fld">
+    <label>या तारखेपूर्वीचा सर्व डेटा डिलीट करा</label>
+    <input type="date" id="cutoffDate">
+  </div>
+  <button class="btn btn-preview" onclick="previewDelete()">👁️ काय डिलीट होईल ते पहा</button>
+
+  <div id="previewBox" class="preview-box">
+    <h4>📋 डिलीट होणारा डेटा</h4>
+    <div class="pv-row"><span>तारीखेपूर्वीचा डेटा:</span><b id="pvBefore">—</b></div>
+    <div class="pv-row"><span>एकूण नोंदी:</span><b id="pvTotal">0</b></div>
+    <div class="pv-row"><span>जमा नोंदी:</span><b id="pvIncome">0</b></div>
+    <div class="pv-row"><span>खर्च नोंदी:</span><b id="pvExpense">0</b></div>
+    <div class="pv-row"><span>देणे हप्ते:</span><b id="pvLoanPay">0</b></div>
+    <div class="pv-row"><span>पूर्ण महिने:</span><b id="pvMonths">0</b></div>
+    <button class="btn-confirm-del" onclick="confirmDelete()">🗑️ हो, हा डेटा कायमचा डिलीट करा</button>
+  </div>
+</div>
+
+<!-- 🧠 मेमरी + पूर्ण रिसेट -->
 <div class="section">
   <h3><span class="dot" style="background:#607d8b"></span> 🧠 मेमरी वापर</h3>
   <div class="memory-box">
     <div class="mlabel">वापरलेली मेमरी</div>
     <div class="mval" id="memUsed">—</div>
     <div class="mem-bar" id="memBarWrap"><div id="memBar" style="width:0%"></div></div>
-    <div class="hint" style="margin-top:8px">एकूण उपलब्ध: सुमारे 5 MB · नोंदी: <b id="memRecords">0</b></div>
+    <div class="hint" style="margin-top:8px">एकूण उपलब्ध: सुमारे 5 MB (5120 KB) · नोंदी: <b id="memRecords">0</b></div>
   </div>
-  <button class="btn-reset" onclick="resetAll()">🗑️ सर्व डेटा डिलीट करा (रिसेट)</button>
-  <div class="hint">⚠️ रिसेट केल्यावर सर्व नोंदी कायमच्या जातील. आधी <b>"💾 बॅकअप घ्या"</b> करा!</div>
+  <button class="btn-reset" onclick="resetAll()">🗑️ सर्व डेटा डिलीट करा (पूर्ण रिसेट)</button>
+  <div class="hint">⚠️ पूर्ण रिसेट केल्यावर सर्व नोंदी कायमच्या जातील. आधी <b>"💾 बॅकअप घ्या"</b> करा!</div>
 </div>
 
 <footer>
@@ -311,7 +347,9 @@ function mdata(m){if(!db.months[m])db.months[m]={income:[],expense:[]};return db
 function money(n){return '₹'+Number(n||0).toLocaleString('en-IN');}
 function fmtDate(s){const[y,m,d]=s.split('-');return d+'/'+m+'/'+y;}
 let curMonth=todayStr().slice(0,7);
+let pendingDeleteDate=null;
 
+/* ---------- मेमरी ---------- */
 function updateMemory(){
   const str=JSON.stringify(db);
   const bytes=new Blob([str]).size;
@@ -321,7 +359,7 @@ function updateMemory(){
   if(mb>=0.1) display=mb.toFixed(2)+' MB';
   else if(kb>=1) display=kb.toFixed(1)+' KB';
   else display=bytes+' बाइट्स';
-  document.getElementById('memUsed').textContent=display;
+  document.getElementById('memUsed').textContent=display+' / 5 MB';
   const maxBytes=5*1024*1024;
   const pct=Math.min(100,(bytes/maxBytes)*100);
   document.getElementById('memBar').style.width=pct+'%';
@@ -339,6 +377,7 @@ function updateMemory(){
   document.getElementById('memRecords').textContent=count;
 }
 
+/* ---------- पूर्ण रिसेट ---------- */
 function resetAll(){
   if(!confirm('⚠️ सर्व डेटा कायमचा डिलीट होईल!\n\nआधी बॅकअप घेतला आहे का?\n\nरिसेट करायचे?')) return;
   if(!confirm('🚨 शेवटची खात्री: सर्व नोंदी जातील. पुढे जायचे?')) return;
@@ -348,9 +387,91 @@ function resetAll(){
   render();
   document.getElementById('todayPanel').style.display='none';
   document.getElementById('searchResult').style.display='none';
+  document.getElementById('previewBox').classList.remove('show');
   toast('✅ सर्व डेटा रिसेट झाला');
 }
 
+/* ---------- निवडक डिलीट ---------- */
+function previewDelete(){
+  const cutoff=document.getElementById('cutoffDate').value;
+  if(!cutoff){toast('तारीख निवडा');return;}
+  pendingDeleteDate=cutoff;
+
+  let total=0, incCount=0, expCount=0, loanPayCount=0, monthsCount=0;
+  let incAmt=0, expAmt=0, loanAmt=0;
+
+  Object.keys(db.months).forEach(mk=>{
+    const md=db.months[mk];
+    let monthHasOldData=false;
+    (md.income||[]).forEach(x=>{
+      if(x.date<cutoff){incCount++;incAmt+=x.amt;monthHasOldData=true;}
+    });
+    (md.expense||[]).forEach(x=>{
+      if(x.date<cutoff){expCount++;expAmt+=x.amt;monthHasOldData=true;}
+    });
+    if(monthHasOldData) monthsCount++;
+  });
+
+  (db.loans||[]).forEach(l=>{
+    (l.payments||[]).forEach(p=>{
+      if(p.date<cutoff){loanPayCount++;loanAmt+=p.amt;}
+    });
+  });
+
+  total=incCount+expCount+loanPayCount;
+
+  document.getElementById('pvBefore').textContent=fmtDate(cutoff)+' पूर्वी';
+  document.getElementById('pvTotal').textContent=total+' नोंदी';
+  document.getElementById('pvIncome').textContent=incCount+' नोंदी ('+money(incAmt)+')';
+  document.getElementById('pvExpense').textContent=expCount+' नोंदी ('+money(expAmt)+')';
+  document.getElementById('pvLoanPay').textContent=loanPayCount+' हप्ते ('+money(loanAmt)+')';
+  document.getElementById('pvMonths').textContent=monthsCount+' महिने';
+
+  document.getElementById('previewBox').classList.add('show');
+
+  if(total===0){
+    toast('ℹ️ या तारखेपूर्वी कोणताही डेटा नाही');
+  }else{
+    toast('👁️ '+total+' नोंदी डिलीट होतील');
+  }
+}
+
+function confirmDelete(){
+  if(!pendingDeleteDate){toast('आधी तारीख निवडा');return;}
+  const cutoff=pendingDeleteDate;
+
+  if(!confirm('🗑️ '+fmtDate(cutoff)+' पूर्वीचा सर्व डेटा डिलीट होईल.\n\nखात्री आहे?')) return;
+  if(!confirm('🚨 शेवटची खात्री!\n\nहा डेटा पुन्हा परत मिळणार नाही.\n\nआधी बॅकअप घेतला आहे का?')) return;
+
+  let deleted=0;
+
+  Object.keys(db.months).forEach(mk=>{
+    const md=db.months[mk];
+    const oldInc=(md.income||[]).length;
+    const oldExp=(md.expense||[]).length;
+    md.income=(md.income||[]).filter(x=>x.date>=cutoff);
+    md.expense=(md.expense||[]).filter(x=>x.date>=cutoff);
+    deleted += (oldInc-md.income.length)+(oldExp-md.expense.length);
+    if(md.income.length===0 && md.expense.length===0){
+      delete db.months[mk];
+    }
+  });
+
+  (db.loans||[]).forEach(l=>{
+    const oldPay=(l.payments||[]).length;
+    l.payments=(l.payments||[]).filter(p=>p.date>=cutoff);
+    deleted += (oldPay-l.payments.length);
+  });
+
+  save();
+  render();
+  document.getElementById('previewBox').classList.remove('show');
+  document.getElementById('cutoffDate').value='';
+  pendingDeleteDate=null;
+  toast('✅ '+deleted+' जुन्या नोंदी डिलीट झाल्या');
+}
+
+/* ---------- Collapse ---------- */
 function toggleSec(id,headEl){
   const body=document.getElementById(id);
   const btn=headEl.querySelector('.toggle-btn');
