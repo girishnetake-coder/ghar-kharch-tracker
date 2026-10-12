@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="mr">
 <head>
@@ -7,73 +6,152 @@
 <title>घरखर्च वही</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:'Noto Sans Devanagari','Segoe UI',Roboto,sans-serif;background:#eef1f6;color:#1b1b1b;padding-bottom:50px}
-header{background:linear-gradient(135deg,#1e88e5,#0d47a1);color:#fff;padding:14px;text-align:center;font-size:20px;font-weight:700;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.monthbar{display:flex;align-items:center;justify-content:space-between;background:#fff;padding:10px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);position:sticky;top:52px;z-index:19}
-.monthbar span{font-weight:700;font-size:17px;color:#0d47a1}
-.monthbar button{border:none;background:#e3f2fd;color:#0d47a1;font-size:18px;width:38px;height:38px;border-radius:50%;cursor:pointer;font-weight:700}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
-.card{background:#fff;border-radius:14px;padding:12px;box-shadow:0 2px 6px rgba(0,0,0,.07)}
-.card .lbl{font-size:12px;color:#666;margin-bottom:4px}
-.card .val{font-size:20px;font-weight:800}
-.card.full{grid-column:1/-1;background:linear-gradient(135deg,#43a047,#1b5e20);color:#fff}
+body{margin:0;font-family:'Noto Sans Devanagari','Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#dfe9f3 0%,#eef1f6 50%,#d9e4f0 100%);color:#1b1b1b;padding-bottom:60px;perspective:1200px}
+
+header{background:linear-gradient(145deg,#2196f3,#0d47a1);color:#fff;padding:16px;text-align:center;font-size:21px;font-weight:800;position:sticky;top:0;z-index:20;letter-spacing:.5px;
+  box-shadow:0 6px 20px rgba(13,71,161,.45), inset 0 1px 0 rgba(255,255,255,.25), inset 0 -2px 6px rgba(0,0,0,.25);
+  text-shadow:0 2px 4px rgba(0,0,0,.35);border-bottom:2px solid #0a3d91}
+
+.monthbar{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(145deg,#ffffff,#e8eef7);padding:11px 14px;position:sticky;top:56px;z-index:19;
+  box-shadow:0 4px 12px rgba(13,71,161,.18), inset 0 1px 0 #fff, inset 0 -2px 4px rgba(0,0,0,.06);
+  border-bottom:1px solid #c9d6e8}
+.monthbar span{font-weight:800;font-size:17px;color:#0d47a1;text-shadow:0 1px 1px rgba(255,255,255,.8)}
+.monthbar button{border:none;background:linear-gradient(145deg,#e3f2fd,#bbdefb);color:#0d47a1;font-size:18px;width:42px;height:42px;border-radius:50%;cursor:pointer;font-weight:800;
+  box-shadow:0 4px 10px rgba(13,71,161,.3), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 4px rgba(0,0,0,.1);transition:.1s}
+.monthbar button:active{transform:translateY(2px);box-shadow:0 1px 3px rgba(13,71,161,.3), inset 0 2px 4px rgba(0,0,0,.15)}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px}
+.card{background:linear-gradient(145deg,#ffffff,#eef3fa);border-radius:16px;padding:14px;
+  box-shadow:0 6px 16px rgba(13,71,161,.15), inset 0 1px 0 #fff, inset 0 -3px 6px rgba(0,0,0,.05);
+  border:1px solid rgba(255,255,255,.8)}
+.card .lbl{font-size:12px;color:#666;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.card .val{font-size:22px;font-weight:900;text-shadow:0 1px 1px rgba(255,255,255,.7)}
+.card.full{grid-column:1/-1;background:linear-gradient(145deg,#4caf50,#1b5e20);color:#fff;
+  box-shadow:0 8px 22px rgba(27,94,32,.45), inset 0 2px 0 rgba(255,255,255,.25), inset 0 -3px 8px rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.15)}
 .card.full .lbl{color:#d7f5d9}
-.card.full .val{font-size:26px}
+.card.full .val{font-size:30px;text-shadow:0 2px 4px rgba(0,0,0,.35)}
 .green{color:#2e7d32}.red{color:#c62828}.blue{color:#1565c0}.orange{color:#e65100}
-.section{background:#fff;margin:12px;border-radius:14px;padding:14px;box-shadow:0 2px 6px rgba(0,0,0,.07)}
-.section h3{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:8px}
-.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+.section{background:linear-gradient(145deg,#ffffff,#f1f5fb);margin:14px;border-radius:18px;padding:16px;
+  box-shadow:0 8px 22px rgba(13,71,161,.13), inset 0 1px 0 #fff, inset 0 -3px 8px rgba(0,0,0,.05);
+  border:1px solid rgba(255,255,255,.9)}
+
+.section h3{margin:0 0 12px;font-size:16px;display:flex;align-items:center;gap:8px;color:#1a237e;font-weight:800;
+  text-shadow:0 1px 1px rgba(255,255,255,.8)}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;box-shadow:0 2px 4px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.5)}
+
+/* Collapsible section */
+.sec-head{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;
+  padding:4px 0;margin:-4px 0 8px}
+.sec-head h3{margin:0}
+.toggle-btn{border:none;background:linear-gradient(145deg,#e3f2fd,#bbdefb);color:#0d47a1;
+  font-size:13px;font-weight:800;padding:7px 14px;border-radius:20px;cursor:pointer;font-family:inherit;
+  box-shadow:0 3px 8px rgba(13,71,161,.25), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 4px rgba(0,0,0,.08);
+  transition:.15s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.toggle-btn:active{transform:translateY(2px);box-shadow:0 1px 3px rgba(13,71,161,.25), inset 0 2px 4px rgba(0,0,0,.12)}
+.toggle-btn.open{background:linear-gradient(145deg,#ffe0b2,#ffcc80);color:#e65100}
+.toggle-btn .arrow{display:inline-block;transition:transform .25s}
+.toggle-btn.open .arrow{transform:rotate(180deg)}
+.sec-body{overflow:hidden;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.sec-body.collapsed{max-height:0;opacity:0;margin-top:0}
+
 .row{display:flex;gap:8px;margin-bottom:10px}
-input{flex:1;min-width:0;padding:12px;border:1.5px solid #cfd8dc;border-radius:10px;font-size:16px;font-family:inherit;background:#fafbfc}
-input:focus{outline:none;border-color:#1e88e5;background:#fff}
-input.amt{flex:0 0 110px;text-align:right;font-weight:700}
-.mic{flex:0 0 48px;border:none;border-radius:10px;background:#fff3e0;color:#e65100;font-size:20px;cursor:pointer;border:1.5px solid #ffcc80}
-.mic.rec{background:#ff5252;color:#fff;border-color:#ff5252;animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
-.btn{width:100%;padding:13px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit}
-.btn-add{background:#1e88e5;color:#fff}
-.btn-add:active{background:#1565c0}
-.btn-big{background:linear-gradient(135deg,#fb8c00,#e65100);color:#fff;font-size:17px;padding:16px;margin:0 12px;width:calc(100% - 24px);border-radius:14px;box-shadow:0 4px 12px rgba(230,81,0,.35)}
-ul.list{list-style:none;margin:10px 0 0;padding:0;max-height:230px;overflow-y:auto}
-ul.list li{display:flex;align-items:center;gap:8px;padding:9px 4px;border-bottom:1px solid #f0f0f0;font-size:15px}
+input,select{flex:1;min-width:0;padding:12px;border:1.5px solid #cfd8dc;border-radius:12px;font-size:16px;font-family:inherit;
+  background:linear-gradient(145deg,#ffffff,#f5f8fc);box-shadow:inset 0 2px 4px rgba(0,0,0,.06), inset 0 -1px 0 #fff;transition:.15s}
+input:focus,select:focus{outline:none;border-color:#1e88e5;background:#fff;box-shadow:inset 0 2px 5px rgba(30,136,229,.15), 0 0 0 3px rgba(30,136,229,.12)}
+input.amt{flex:0 0 110px;text-align:right;font-weight:800}
+.mic{flex:0 0 48px;border:none;border-radius:12px;background:linear-gradient(145deg,#fff8e1,#ffe0b2);color:#e65100;font-size:20px;cursor:pointer;border:1.5px solid #ffcc80;
+  box-shadow:0 3px 8px rgba(230,81,0,.2), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 4px rgba(0,0,0,.08);transition:.15s}
+.mic:active{transform:translateY(2px);box-shadow:0 1px 3px rgba(230,81,0,.2), inset 0 2px 4px rgba(0,0,0,.12)}
+.mic.rec{background:linear-gradient(145deg,#ff5252,#d32f2f);color:#fff;border-color:#d32f2f;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.75;transform:scale(1.03)}}
+
+.btn{width:100%;padding:14px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:.3px;transition:.12s}
+.btn-add{background:linear-gradient(145deg,#42a5f5,#1565c0);color:#fff;
+  box-shadow:0 5px 14px rgba(21,101,192,.4), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 6px rgba(0,0,0,.2);
+  text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.btn-add:active{transform:translateY(3px);box-shadow:0 1px 4px rgba(21,101,192,.4), inset 0 3px 6px rgba(0,0,0,.25)}
+.btn-big{background:linear-gradient(145deg,#ffa726,#e65100);color:#fff;font-size:17px;padding:17px;margin:0 14px;width:calc(100% - 28px);border-radius:16px;
+  box-shadow:0 7px 20px rgba(230,81,0,.45), inset 0 2px 0 rgba(255,255,255,.3), inset 0 -4px 8px rgba(0,0,0,.25);
+  text-shadow:0 2px 3px rgba(0,0,0,.3);font-weight:800;letter-spacing:.5px}
+.btn-big:active{transform:translateY(4px);box-shadow:0 2px 6px rgba(230,81,0,.45), inset 0 4px 8px rgba(0,0,0,.3)}
+
+ul.list{list-style:none;margin:10px 0 0;padding:0;max-height:250px;overflow-y:auto}
+ul.list li{display:flex;align-items:center;gap:8px;padding:11px 6px;border-bottom:1px solid #e8eef7;font-size:15px}
 ul.list li:last-child{border-bottom:none}
-.nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
 .dt{font-size:11px;color:#999;margin-right:4px}
-.am{font-weight:700;white-space:nowrap}
-.del{border:none;background:none;color:#ef9a9a;font-size:19px;cursor:pointer;padding:0 4px}
+.am{font-weight:800;white-space:nowrap;text-shadow:0 1px 1px rgba(255,255,255,.7)}
+.del{border:none;background:none;color:#ef9a9a;font-size:20px;cursor:pointer;padding:0 6px;font-weight:800}
 .empty{text-align:center;color:#aaa;font-size:14px;padding:14px}
-#todayPanel{display:none;margin:12px;background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.12);border-top:5px solid #fb8c00}
-#todayPanel h3{margin:0 0 12px;font-size:17px;color:#e65100}
-.sumrow{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px dashed #e0e0e0;font-size:16px}
+
+#todayPanel{display:none;margin:14px;background:linear-gradient(145deg,#fff,#fff8e1);border-radius:18px;padding:18px;
+  box-shadow:0 10px 28px rgba(230,81,0,.25), inset 0 1px 0 #fff, inset 0 -3px 8px rgba(0,0,0,.05);
+  border-top:5px solid #fb8c00}
+#todayPanel h3{margin:0 0 12px;font-size:17px;color:#e65100;font-weight:800}
+.sumrow{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e0e0e0;font-size:16px}
 .sumrow:last-child{border-bottom:none}
 .sumrow b{font-size:18px}
-.big-bal{background:#e8f5e9;border-radius:10px;padding:14px;text-align:center;margin-top:10px}
-.big-bal .l{font-size:13px;color:#555}
-.big-bal .v{font-size:30px;font-weight:900;color:#1b5e20}
-.loan{background:#fff8e1;border-radius:12px;padding:12px;margin-bottom:10px;border-left:4px solid #ff9800}
-.loan .lname{font-weight:800;font-size:16px;color:#4e342e;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.big-bal{background:linear-gradient(145deg,#c8e6c9,#a5d6a7);border-radius:12px;padding:16px;text-align:center;margin-top:12px;
+  box-shadow:inset 0 3px 8px rgba(0,0,0,.12), inset 0 -1px 0 rgba(255,255,255,.6), 0 4px 12px rgba(46,125,50,.25)}
+.big-bal .l{font-size:13px;color:#2e4a2f;font-weight:700}
+.big-bal .v{font-size:32px;font-weight:900;color:#1b5e20;text-shadow:0 2px 3px rgba(255,255,255,.7)}
+
+.loan{background:linear-gradient(145deg,#fff8e1,#ffecb3);border-radius:14px;padding:14px;margin-bottom:12px;border-left:5px solid #ff9800;
+  box-shadow:0 6px 16px rgba(230,81,0,.18), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 5px rgba(0,0,0,.06)}
+.loan .lname{font-weight:800;font-size:16px;color:#4e342e;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;text-shadow:0 1px 1px rgba(255,255,255,.7)}
 .loan .lname .del{color:#e57373}
 .lrow{display:flex;justify-content:space-between;font-size:14px;padding:3px 0}
-.lrow b{font-weight:700}
-.lbal{background:#fff3e0;border-radius:8px;padding:8px 10px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;font-size:15px}
-.lbal b{font-size:18px;color:#e65100}
-.payrow{display:flex;gap:6px;margin-top:8px}
-.payrow input{flex:1;padding:8px;font-size:14px}
-.payrow button{background:#ff9800;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-weight:700;font-size:14px;font-family:inherit;cursor:pointer}
-.payrow button:active{background:#e65100}
-.paylog{font-size:12px;color:#666;margin-top:6px;max-height:80px;overflow-y:auto}
-.paylog div{padding:2px 0;border-bottom:1px dotted #eee}
-.progress{height:6px;background:#ffe0b2;border-radius:3px;margin-top:6px;overflow:hidden}
-.progress div{height:100%;background:#4caf50;transition:width .3s}
-/* बॅकअप विभाग */
-.backup-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.btn-backup{background:#00acc1;color:#fff;padding:14px;border:none;border-radius:10px;font-weight:700;font-size:15px;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-backup:active{background:#00838f}
-.btn-restore{background:#7cb342;color:#fff;padding:14px;border:none;border-radius:10px;font-weight:700;font-size:15px;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-restore:active{background:#558b2f}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:12px 22px;border-radius:30px;font-size:15px;opacity:0;transition:.3s;pointer-events:none;z-index:99;white-space:nowrap;max-width:90%}
-.toast.show{opacity:1;bottom:40px}
-.hint{font-size:12px;color:#888;margin-top:6px;line-height:1.5}
+.lrow b{font-weight:800}
+.lbal{background:linear-gradient(145deg,#ffe0b2,#ffcc80);border-radius:10px;padding:10px 12px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;font-size:15px;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.1), inset 0 -1px 0 rgba(255,255,255,.5)}
+.lbal b{font-size:19px;color:#e65100;text-shadow:0 1px 1px rgba(255,255,255,.6)}
+.payrow{display:flex;gap:6px;margin-top:10px}
+.payrow input{flex:1;padding:9px;font-size:14px}
+.payrow button{background:linear-gradient(145deg,#ffb74d,#f57c00);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-weight:800;font-size:14px;font-family:inherit;cursor:pointer;
+  box-shadow:0 4px 10px rgba(230,81,0,.35), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 4px rgba(0,0,0,.15);transition:.12s;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.payrow button:active{transform:translateY(2px);box-shadow:0 1px 3px rgba(230,81,0,.35), inset 0 2px 4px rgba(0,0,0,.2)}
+.paylog{font-size:12px;color:#666;margin-top:8px;max-height:90px;overflow-y:auto}
+.paylog div{padding:3px 0;border-bottom:1px dotted #ddd}
+.progress{height:8px;background:linear-gradient(145deg,#ffe0b2,#ffcc80);border-radius:5px;margin-top:8px;overflow:hidden;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.15)}
+.progress div{height:100%;background:linear-gradient(145deg,#66bb6a,#2e7d32);transition:width .4s;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 0 8px rgba(76,175,80,.5)}
+
+.backup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.btn-backup,.btn-restore,.btn-excel{padding:14px;border:none;border-radius:12px;font-weight:800;font-size:14px;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.12s;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.btn-backup{background:linear-gradient(145deg,#26c6da,#00838f);color:#fff;box-shadow:0 5px 14px rgba(0,131,143,.4), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 6px rgba(0,0,0,.2)}
+.btn-backup:active{transform:translateY(3px);box-shadow:0 1px 4px rgba(0,131,143,.4), inset 0 3px 6px rgba(0,0,0,.25)}
+.btn-restore{background:linear-gradient(145deg,#9ccc65,#558b2f);color:#fff;box-shadow:0 5px 14px rgba(85,139,47,.4), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 6px rgba(0,0,0,.2)}
+.btn-restore:active{transform:translateY(3px);box-shadow:0 1px 4px rgba(85,139,47,.4), inset 0 3px 6px rgba(0,0,0,.25)}
+.btn-excel{background:linear-gradient(145deg,#2e7d32,#1b5e20);color:#fff;width:100%;margin-top:12px;box-shadow:0 6px 16px rgba(27,94,32,.45), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 6px rgba(0,0,0,.2)}
+.btn-excel:active{transform:translateY(3px);box-shadow:0 1px 4px rgba(27,94,32,.45), inset 0 3px 6px rgba(0,0,0,.25)}
+
+.search-tabs{display:flex;gap:8px;margin-bottom:12px}
+.search-tabs button{flex:1;padding:11px;border:1.5px solid #cfd8dc;background:linear-gradient(145deg,#fafbfc,#e8eef7);border-radius:12px;font-family:inherit;font-size:14px;font-weight:800;color:#555;cursor:pointer;transition:.15s;
+  box-shadow:0 3px 8px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 4px rgba(0,0,0,.06)}
+.search-tabs button.active{background:linear-gradient(145deg,#42a5f5,#1565c0);color:#fff;border-color:#1565c0;text-shadow:0 1px 2px rgba(0,0,0,.3);
+  box-shadow:0 5px 12px rgba(21,101,192,.4), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -2px 4px rgba(0,0,0,.15)}
+.search-tabs button:active{transform:translateY(2px)}
+.search-panel{display:none}
+.search-panel.active{display:block}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:13px;color:#555;margin-bottom:5px;font-weight:700}
+.result-box{margin-top:14px;border-top:2px solid #e3f2fd;padding-top:12px;max-height:380px;overflow-y:auto}
+.rec{background:linear-gradient(145deg,#ffffff,#f5f8fc);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:14px;border-left:4px solid #90a4ae;
+  box-shadow:0 3px 8px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.9)}
+.rec.income{border-left-color:#43a047}
+.rec.expense{border-left-color:#e53935}
+.rec.loanpay{border-left-color:#ff9800}
+.rec b{font-size:15px}
+.rec .meta{font-size:11px;color:#888;margin-top:2px}
+.rec .amt-wrap{text-align:right}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:linear-gradient(145deg,#455a64,#263238);color:#fff;padding:14px 24px;border-radius:30px;font-size:15px;opacity:0;transition:.3s;pointer-events:none;z-index:99;white-space:nowrap;max-width:90%;font-weight:700;
+  box-shadow:0 8px 24px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.2)}
+.toast.show{opacity:1;bottom:44px}
+.hint{font-size:12px;color:#666;margin-top:8px;line-height:1.6;font-style:italic}
 </style>
 </head>
 <body>
@@ -92,7 +170,48 @@ ul.list li:last-child{border-bottom:none}
   <div class="card full"><div class="lbl">शिल्लक रक्कम</div><div class="val" id="cBalance">₹0</div></div>
 </div>
 
-<!-- बॅकअप विभाग -->
+<!-- 🔍 शोध -->
+<div class="section">
+  <h3><span class="dot" style="background:#1565c0"></span> 🔍 नोंदी शोधा</h3>
+  <div class="search-tabs">
+    <button class="active" onclick="switchTab('date',this)">तारीख</button>
+    <button onclick="switchTab('month',this)">महिना</button>
+    <button onclick="switchTab('year',this)">साल</button>
+  </div>
+
+  <div id="panel-date" class="search-panel active">
+    <div class="fld"><label>पासून तारीख</label><input type="date" id="sFrom"></div>
+    <div class="fld"><label>पर्यंत तारीख</label><input type="date" id="sTo"></div>
+    <button class="btn btn-add" onclick="doSearch('date')">🔍 शोधा</button>
+  </div>
+
+  <div id="panel-month" class="search-panel">
+    <div class="fld"><label>महिना</label>
+      <select id="sMonth">
+        <option value="01">जानेवारी</option><option value="02">फेब्रुवारी</option>
+        <option value="03">मार्च</option><option value="04">एप्रिल</option>
+        <option value="05">मे</option><option value="06">जून</option>
+        <option value="07">जुलै</option><option value="08">ऑगस्ट</option>
+        <option value="09">सप्टेंबर</option><option value="10">ऑक्टोबर</option>
+        <option value="11">नोव्हेंबर</option><option value="12">डिसेंबर</option>
+      </select>
+    </div>
+    <div class="fld"><label>साल</label><input type="number" id="sYear" placeholder="2026"></div>
+    <button class="btn btn-add" onclick="doSearch('month')">🔍 शोधा</button>
+  </div>
+
+  <div id="panel-year" class="search-panel">
+    <div class="fld"><label>साल</label><input type="number" id="sYearOnly" placeholder="2026"></div>
+    <button class="btn btn-add" onclick="doSearch('year')">🔍 शोधा</button>
+  </div>
+
+  <div id="searchResult" class="result-box" style="display:none"></div>
+
+  <button class="btn-excel" onclick="exportExcel()">📊 Excel मध्ये डाउनलोड करा (.csv)</button>
+  <div class="hint">Excel फाईल तारीख, तपशील, जमा, खर्च, देणे बाकी — सर्व माहितीसह डाउनलोड होईल.</div>
+</div>
+
+<!-- 💾 बॅकअप -->
 <div class="section">
   <h3><span class="dot" style="background:#00acc1"></span> डेटा बॅकअप / परत आणा</h3>
   <div class="backup-grid">
@@ -100,55 +219,74 @@ ul.list li:last-child{border-bottom:none}
     <button class="btn-restore" onclick="document.getElementById('restoreFile').click()">📂 डेटा परत आणा</button>
   </div>
   <input type="file" id="restoreFile" accept=".json,application/json" style="display:none" onchange="restoreData(event)">
-  <div class="hint">बॅकअप फाईल Downloads मध्ये सेव्ह होईल. Chrome चा डेटा गेला तरी ही फाईल परत अपलोड करून सर्व नोंदी परत मिळतील. फाईल WhatsApp किंवा Google Drive वर पाठवून ठेवा.</div>
 </div>
 
-<!-- देणे बाकी -->
-<div class="section" id="loanSection">
-  <h3><span class="dot" style="background:#ff9800"></span> देणे बाकी (उधार)</h3>
-  <div class="row">
-    <input id="loanName" placeholder="कोणाला द्यायचे? (उदा. रमेशभाई)">
-    <button class="mic" onclick="startVoice('loanName',null)">🎤</button>
-  </div>
-  <div class="row">
-    <input id="loanAmt" class="amt" type="number" inputmode="numeric" placeholder="एकूण रक्कम">
-    <button class="mic" onclick="startVoice('loanAmt',true)">🎤</button>
-  </div>
-  <button class="btn btn-add" onclick="addLoan()">➕ देणे नोंदवा</button>
-  <div id="loanList" style="margin-top:10px"></div>
-</div>
-
-<!-- जमा -->
+<!-- 🟠 देणे बाकी - Collapsible -->
 <div class="section">
-  <h3><span class="dot" style="background:#43a047"></span> जमा (पगार / उत्पन्न)</h3>
-  <div class="row">
-    <input id="incName" placeholder="तपशील (उदा. पगार)">
-    <button class="mic" onclick="startVoice('incName',null)">🎤</button>
+  <div class="sec-head" onclick="toggleSec('loanBody',this)">
+    <h3><span class="dot" style="background:#ff9800"></span> देणे बाकी (उधार)</h3>
+    <button class="toggle-btn open" onclick="event.stopPropagation();toggleSec('loanBody',this.parentElement)">
+      <span id="loanCount">—</span> <span class="arrow">▲</span>
+    </button>
   </div>
-  <div class="row">
-    <input id="incAmt" class="amt" type="number" inputmode="numeric" placeholder="रक्कम">
-    <button class="mic" onclick="startVoice('incAmt',true)">🎤</button>
+  <div id="loanBody" class="sec-body">
+    <div class="row">
+      <input id="loanName" placeholder="कोणाला द्यायचे? (उदा. रमेशभाई)">
+      <button class="mic" onclick="startVoice('loanName',null)">🎤</button>
+    </div>
+    <div class="row">
+      <input id="loanAmt" class="amt" type="number" inputmode="numeric" placeholder="एकूण रक्कम">
+      <button class="mic" onclick="startVoice('loanAmt',true)">🎤</button>
+    </div>
+    <button class="btn btn-add" onclick="addLoan()">➕ देणे नोंदवा</button>
+    <div id="loanList" style="margin-top:12px"></div>
   </div>
-  <button class="btn btn-add" onclick="addEntry('income')">➕ जमा करा</button>
-  <ul class="list" id="incList"></ul>
 </div>
 
-<!-- खर्च -->
+<!-- 🟢 जमा -->
 <div class="section">
-  <h3><span class="dot" style="background:#e53935"></span> रोजचा खर्च</h3>
-  <div class="row">
-    <input id="expName" placeholder="तपशील (उदा. भाजी)">
-    <button class="mic" onclick="startVoice('expName',null)">🎤</button>
+  <div class="sec-head" onclick="toggleSec('incBody',this)">
+    <h3><span class="dot" style="background:#43a047"></span> जमा (पगार / उत्पन्न)</h3>
+    <button class="toggle-btn open" onclick="event.stopPropagation();toggleSec('incBody',this.parentElement)">
+      <span id="incCount">—</span> <span class="arrow">▲</span>
+    </button>
   </div>
-  <div class="row">
-    <input id="expAmt" class="amt" type="number" inputmode="numeric" placeholder="रक्कम">
-    <button class="mic" onclick="startVoice('expAmt',true)">🎤</button>
+  <div id="incBody" class="sec-body">
+    <div class="row">
+      <input id="incName" placeholder="तपशील (उदा. पगार)">
+      <button class="mic" onclick="startVoice('incName',null)">🎤</button>
+    </div>
+    <div class="row">
+      <input id="incAmt" class="amt" type="number" inputmode="numeric" placeholder="रक्कम">
+      <button class="mic" onclick="startVoice('incAmt',true)">🎤</button>
+    </div>
+    <button class="btn btn-add" onclick="addEntry('income')">➕ जमा करा</button>
+    <ul class="list" id="incList"></ul>
   </div>
-  <button class="btn btn-add" onclick="addEntry('expense')">➕ खर्च नोंदवा</button>
-  <ul class="list" id="expList"></ul>
 </div>
 
-<!-- आजचा हिशोब -->
+<!-- 🔴 खर्च -->
+<div class="section">
+  <div class="sec-head" onclick="toggleSec('expBody',this)">
+    <h3><span class="dot" style="background:#e53935"></span> रोजचा खर्च</h3>
+    <button class="toggle-btn open" onclick="event.stopPropagation();toggleSec('expBody',this.parentElement)">
+      <span id="expCount">—</span> <span class="arrow">▲</span>
+    </button>
+  </div>
+  <div id="expBody" class="sec-body">
+    <div class="row">
+      <input id="expName" placeholder="तपशील (उदा. भाजी)">
+      <button class="mic" onclick="startVoice('expName',null)">🎤</button>
+    </div>
+    <div class="row">
+      <input id="expAmt" class="amt" type="number" inputmode="numeric" placeholder="रक्कम">
+      <button class="mic" onclick="startVoice('expAmt',true)">🎤</button>
+    </div>
+    <button class="btn btn-add" onclick="addEntry('expense')">➕ खर्च नोंदवा</button>
+    <ul class="list" id="expList"></ul>
+  </div>
+</div>
+
 <button class="btn btn-big" onclick="showToday()">🧮 आजचा हिशोब पहा</button>
 
 <div id="todayPanel">
@@ -162,14 +300,9 @@ ul.list li:last-child{border-bottom:none}
   </div>
 </div>
 
-<div class="hint" style="padding:0 16px 20px">
-  टीप : 🎤 बटण दाबून मराठीत बोला — “भाजी पाचशे” असे बोलल्यास आकडे व शब्द आपोआप भरले जातील. डेटा फोनमध्येच सुरक्षित राहतो.
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-/* ---------- डेटा ---------- */
 const KEY='gharkharch_v1';
 let db = JSON.parse(localStorage.getItem(KEY) || '{"months":{},"loans":[]}');
 if(!db.loans) db.loans=[];
@@ -180,48 +313,169 @@ function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMo
 function save(){localStorage.setItem(KEY,JSON.stringify(db));}
 function mdata(m){if(!db.months[m])db.months[m]={income:[],expense:[]};return db.months[m];}
 function money(n){return '₹'+Number(n||0).toLocaleString('en-IN');}
-function fmtDate(s){const[y,m,d]=s.split('-');return d+'/'+m;}
+function fmtDate(s){const[y,m,d]=s.split('-');return d+'/'+m+'/'+y;}
 
-let curMonth = todayStr().slice(0,7);
+let curMonth=todayStr().slice(0,7);
 
-/* ---------- बॅकअप / रिस्टोर ---------- */
+/* ---------- Collapse toggle ---------- */
+function toggleSec(id,headEl){
+  const body=document.getElementById(id);
+  const btn=headEl.querySelector('.toggle-btn');
+  if(!btn) return;
+  if(body.classList.contains('collapsed')){
+    body.classList.remove('collapsed');
+    btn.classList.add('open');
+  } else {
+    body.classList.add('collapsed');
+    btn.classList.remove('open');
+  }
+}
+
+/* ---------- शोध ---------- */
+function switchTab(t,btn){
+  document.querySelectorAll('.search-tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.search-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+t).classList.add('active');
+}
+
+function doSearch(mode){
+  let from='',to='';
+  if(mode==='date'){
+    from=document.getElementById('sFrom').value;
+    to=document.getElementById('sTo').value;
+    if(!from||!to){toast('दोन्ही तारखा भरा');return;}
+    if(from>to){toast('पासून तारीख लहान असावी');return;}
+  } else if(mode==='month'){
+    const m=document.getElementById('sMonth').value;
+    const y=document.getElementById('sYear').value;
+    if(!y){toast('साल टाका');return;}
+    from=y+'-'+m+'-01'; to=y+'-'+m+'-31';
+  } else {
+    const y=document.getElementById('sYearOnly').value;
+    if(!y){toast('साल टाका');return;}
+    from=y+'-01-01'; to=y+'-12-31';
+  }
+  renderSearchResults(from,to);
+}
+
+function renderSearchResults(from,to){
+  const box=document.getElementById('searchResult');
+  const rows=[];
+  Object.keys(db.months).forEach(mk=>{
+    const md=db.months[mk];
+    (md.income||[]).forEach(x=>{if(x.date>=from&&x.date<=to)rows.push({date:x.date,type:'जमा',name:x.name,amt:x.amt,cat:'income',color:'#2e7d32'});});
+    (md.expense||[]).forEach(x=>{if(x.date>=from&&x.date<=to)rows.push({date:x.date,type:'खर्च',name:x.name,amt:x.amt,cat:'expense',color:'#c62828'});});
+  });
+  (db.loans||[]).forEach(l=>{
+    (l.payments||[]).forEach(p=>{
+      if(p.date>=from&&p.date<=to)rows.push({date:p.date,type:'देणे दिले',name:l.name,amt:p.amt,cat:'loanpay',color:'#e65100'});
+    });
+  });
+  rows.sort((a,b)=>a.date.localeCompare(b.date));
+
+  if(!rows.length){box.style.display='block';box.innerHTML='<div class="empty">या कालावधीत कोणतीही नोंद नाही</div>';return;}
+
+  let incSum=0,expSum=0,loanSum=0;
+  const html=rows.map(r=>{
+    if(r.cat==='income') incSum+=r.amt;
+    if(r.cat==='expense') expSum+=r.amt;
+    if(r.cat==='loanpay') loanSum+=r.amt;
+    return `<div class="rec ${r.cat}">
+      <div><b>${esc(r.name)}</b><div class="meta">${fmtDate(r.date)} · ${r.type}</div></div>
+      <div class="amt-wrap"><b style="color:${r.color}">${money(r.amt)}</b></div>
+    </div>`;
+  }).join('');
+
+  box.style.display='block';
+  box.innerHTML=`
+    <div style="background:linear-gradient(145deg,#e3f2fd,#bbdefb);padding:12px;border-radius:10px;margin-bottom:10px;font-size:14px;box-shadow:inset 0 2px 5px rgba(0,0,0,.08)">
+      <div style="display:flex;justify-content:space-between"><span>एकूण जमा:</span><b class="green">${money(incSum)}</b></div>
+      <div style="display:flex;justify-content:space-between"><span>एकूण खर्च:</span><b class="red">${money(expSum)}</b></div>
+      <div style="display:flex;justify-content:space-between"><span>देणे दिले:</span><b class="orange">${money(loanSum)}</b></div>
+      <div style="display:flex;justify-content:space-between;border-top:1px dashed #90a4ae;margin-top:6px;padding-top:6px"><span>शिल्लक:</span><b class="blue">${money(incSum-expSum)}</b></div>
+    </div>
+    ${html}`;
+}
+
+/* ---------- Excel ---------- */
+function exportExcel(){
+  const lines=[];
+  lines.push(['तारीख','प्रकार','तपशील','जमा (₹)','खर्च (₹)','देणे दिले (₹)','शिल्लक (₹)'].join(','));
+  const all=[];
+  Object.keys(db.months).forEach(mk=>{
+    const md=db.months[mk];
+    (md.income||[]).forEach(x=>all.push({date:x.date,cat:'जमा',name:x.name,inc:x.amt,exp:'',loan:''}));
+    (md.expense||[]).forEach(x=>all.push({date:x.date,cat:'खर्च',name:x.name,inc:'',exp:x.amt,loan:''}));
+  });
+  (db.loans||[]).forEach(l=>{
+    (l.payments||[]).forEach(p=>{
+      all.push({date:p.date,cat:'देणे दिले ('+l.name+')',name:l.name,inc:'',exp:'',loan:p.amt});
+    });
+  });
+  all.sort((a,b)=>a.date.localeCompare(b.date));
+  all.forEach(r=>{
+    lines.push([r.date,r.cat,'"'+String(r.name).replace(/"/g,'""')+'"',r.inc,r.exp,r.loan,''].join(','));
+  });
+  lines.push('');
+  lines.push('--- देणे बाकी सारांश ---');
+  lines.push(['नाव','एकूण देणे (₹)','दिलेले (₹)','शिल्लक (₹)','स्थिती'].join(','));
+  (db.loans||[]).forEach(l=>{
+    const paid=(l.payments||[]).reduce((s,p)=>s+p.amt,0);
+    const rem=l.total-paid;
+    lines.push(['"'+String(l.name).replace(/"/g,'""')+'"',l.total,paid,rem,rem>0.001?'बाकी':'पूर्ण'].join(','));
+  });
+  lines.push('');
+  lines.push('--- महिन्यानुसार सारांश ---');
+  lines.push(['महिना','जमा (₹)','खर्च (₹)','शिल्लक (₹)'].join(','));
+  Object.keys(db.months).sort().forEach(mk=>{
+    const md=db.months[mk];
+    const inc=(md.income||[]).reduce((s,x)=>s+x.amt,0);
+    const exp=(md.expense||[]).reduce((s,x)=>s+x.amt,0);
+    const[y,m]=mk.split('-');
+    lines.push([MN[+m-1]+' '+y,inc,exp,inc-exp].join(','));
+  });
+  const csv='\uFEFF'+lines.join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const d=new Date();
+  const fname='gharkharch-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.csv';
+  const a=document.createElement('a');
+  a.href=url;a.download=fname;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  toast('📊 Excel फाईल Downloads मध्ये सेव्ह झाली');
+}
+
+/* ---------- बॅकअप ---------- */
 function backupData(){
-  const dataStr = JSON.stringify(db, null, 2);
-  const blob = new Blob([dataStr], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const d = new Date();
-  const fname = 'gharkharch-backup-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.json';
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = fname;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  const dataStr=JSON.stringify(db,null,2);
+  const blob=new Blob([dataStr],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const d=new Date();
+  const fname='gharkharch-backup-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.json';
+  const a=document.createElement('a');
+  a.href=url;a.download=fname;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
   setTimeout(()=>URL.revokeObjectURL(url),1000);
   toast('💾 बॅकअप फाईल Downloads मध्ये सेव्ह झाली');
 }
 
 function restoreData(event){
-  const file = event.target.files[0];
+  const file=event.target.files[0];
   if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e){
-    try {
-      const parsed = JSON.parse(e.target.result);
-      if(!parsed.months && !parsed.loans){
-        toast('❌ चुकीची फाईल आहे');
-        return;
-      }
-      if(!confirm('सध्याचा डेटा बदलून बॅकअपमधील डेटा परत आणायचा? सध्याचा डेटा हटवला जाईल.')) return;
-      db = parsed;
-      if(!db.months) db.months={};
-      if(!db.loans) db.loans=[];
-      save();
-      render();
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const parsed=JSON.parse(e.target.result);
+      if(!parsed.months&&!parsed.loans){toast('❌ चुकीची फाईल');return;}
+      if(!confirm('सध्याचा डेटा बदलून बॅकअपमधील डेटा परत आणायचा?')) return;
+      db=parsed;
+      if(!db.months)db.months={};
+      if(!db.loans)db.loans=[];
+      save();render();
       toast('✅ डेटा यशस्वीरित्या परत आणला');
-    } catch(err){
-      toast('❌ फाईल वाचता आली नाही');
-    }
+    }catch(err){toast('❌ फाईल वाचता आली नाही');}
   };
   reader.readAsText(file);
   event.target.value='';
@@ -235,12 +489,9 @@ function addLoan(){
   const amt=parseFloat(aEl.value);
   if(!name){toast('नाव लिहा किंवा बोला');return;}
   if(!amt||amt<=0){toast('रक्कम टाका किंवा बोला');return;}
-  db.loans.push({
-    id:Date.now()+''+Math.floor(Math.random()*999),
-    name, total:amt, payments:[], created:todayStr(), ts:Date.now()
-  });
-  nEl.value=''; aEl.value='';
-  renderLoans(); save();
+  db.loans.push({id:Date.now()+''+Math.floor(Math.random()*999),name,total:amt,payments:[],created:todayStr(),ts:Date.now()});
+  nEl.value='';aEl.value='';
+  renderLoans();save();
   toast('✅ देणे नोंदवले');
 }
 
@@ -255,16 +506,16 @@ function payLoan(id){
   if(amt>remain){
     if(!confirm('शिल्लक पेक्षा जास्त रक्कम आहे. तरी नोंदवायचे?')) return;
   }
-  loan.payments.push({amt, date:todayStr(), ts:Date.now()});
+  loan.payments.push({amt,date:todayStr(),ts:Date.now()});
   input.value='';
-  renderLoans(); save();
+  renderLoans();save();
   toast('✅ '+money(amt)+' दिले');
 }
 
 function delLoan(id){
   if(!confirm('ही नोंद कायमची हटवायची?')) return;
   db.loans=db.loans.filter(l=>l.id!==id);
-  renderLoans(); save();
+  renderLoans();save();
   toast('हटवले');
 }
 
@@ -275,19 +526,21 @@ function renderLoans(){
     return (l.total-paid)>0.001;
   }).sort((a,b)=>a.ts-b.ts);
 
+  const countEl=document.getElementById('loanCount');
+  if(countEl) countEl.textContent=pending.length?('बाकी: '+pending.length):'रिकामे';
+
   if(!pending.length){
     box.innerHTML='<div class="empty">सध्या कोणतेही देणे बाकी नाही 🎉</div>';
     return;
   }
-
-  box.innerHTML = pending.map(l=>{
+  box.innerHTML=pending.map(l=>{
     const paid=l.payments.reduce((s,p)=>s+p.amt,0);
     const remain=l.total-paid;
     const pct=Math.min(100,(paid/l.total)*100);
-    const log = l.payments.length
-      ? '<div class="paylog">'+l.payments.slice().reverse().map(p=>
+    const log=l.payments.length
+      ?'<div class="paylog">'+l.payments.slice().reverse().map(p=>
           '<div>'+fmtDate(p.date)+' — '+money(p.amt)+'</div>').join('')+'</div>'
-      : '';
+      :'';
     return `
       <div class="loan">
         <div class="lname">
@@ -310,26 +563,30 @@ function renderLoans(){
 /* ---------- रेंडर ---------- */
 function render(){
   const[y,m]=curMonth.split('-');
-  document.getElementById('monthLabel').textContent = MN[+m-1]+' '+y;
+  document.getElementById('monthLabel').textContent=MN[+m-1]+' '+y;
+  const d=mdata(curMonth);
+  const inc=d.income.reduce((s,x)=>s+x.amt,0);
+  const exp=d.expense.reduce((s,x)=>s+x.amt,0);
+  document.getElementById('cIncome').textContent=money(inc);
+  document.getElementById('cExpense').textContent=money(exp);
+  document.getElementById('cBalance').textContent=money(inc-exp);
 
-  const d = mdata(curMonth);
-  const inc = d.income.reduce((s,x)=>s+x.amt,0);
-  const exp = d.expense.reduce((s,x)=>s+x.amt,0);
-  document.getElementById('cIncome').textContent = money(inc);
-  document.getElementById('cExpense').textContent = money(exp);
-  document.getElementById('cBalance').textContent = money(inc-exp);
+  const ic=document.getElementById('incCount');
+  const ec=document.getElementById('expCount');
+  if(ic) ic.textContent=d.income.length?d.income.length+' नोंदी':'रिकामे';
+  if(ec) ec.textContent=d.expense.length?d.expense.length+' नोंदी':'रिकामे';
 
-  drawList('incList', d.income, 'income', '#2e7d32');
-  drawList('expList', d.expense, 'expense', '#c62828');
+  drawList('incList',d.income,'income','#2e7d32');
+  drawList('expList',d.expense,'expense','#c62828');
   renderLoans();
   save();
 }
 
-function drawList(id, arr, type, color){
+function drawList(id,arr,type,color){
   const ul=document.getElementById(id);
   if(!arr.length){ul.innerHTML='<div class="empty">अजून नोंद नाही</div>';return;}
   const sorted=[...arr].sort((a,b)=>b.ts-a.ts);
-  ul.innerHTML = sorted.map(x=>`
+  ul.innerHTML=sorted.map(x=>`
     <li>
       <span class="dt">${fmtDate(x.date)}</span>
       <span class="nm">${esc(x.name)}</span>
@@ -339,156 +596,118 @@ function drawList(id, arr, type, color){
 }
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
-/* ---------- नोंद ---------- */
 function addEntry(type){
-  const nEl = document.getElementById(type==='income'?'incName':'expName');
-  const aEl = document.getElementById(type==='income'?'incAmt':'expAmt');
-  const name = nEl.value.trim();
-  const amt = parseFloat(aEl.value);
-
+  const nEl=document.getElementById(type==='income'?'incName':'expName');
+  const aEl=document.getElementById(type==='income'?'incAmt':'expAmt');
+  const name=nEl.value.trim();
+  const amt=parseFloat(aEl.value);
   if(!name){toast('तपशील लिहा किंवा बोला');return;}
-  if(!amt || amt<=0){toast('रक्कम टाका किंवा बोला');return;}
-
-  mdata(curMonth)[type].push({
-    id: Date.now()+''+Math.floor(Math.random()*999),
-    name, amt, date: todayStr(), ts: Date.now()
-  });
-  nEl.value=''; aEl.value='';
+  if(!amt||amt<=0){toast('रक्कम टाका किंवा बोला');return;}
+  mdata(curMonth)[type].push({id:Date.now()+''+Math.floor(Math.random()*999),name,amt,date:todayStr(),ts:Date.now()});
+  nEl.value='';aEl.value='';
   render();
-  toast(type==='income' ? '✅ जमा झाले' : '✅ खर्च नोंदवला');
+  toast(type==='income'?'✅ जमा झाले':'✅ खर्च नोंदवला');
   nEl.focus();
 }
 
 function delEntry(type,id){
   const d=mdata(curMonth);
-  d[type] = d[type].filter(x=>x.id!==id);
+  d[type]=d[type].filter(x=>x.id!==id);
   render();
   toast('हटवले');
 }
 
-/* ---------- महिना बदल ---------- */
 function changeMonth(step){
   let[y,m]=curMonth.split('-').map(Number);
   m+=step;
   if(m<1){m=12;y--;} if(m>12){m=1;y++;}
-  curMonth = y+'-'+String(m).padStart(2,'0');
+  curMonth=y+'-'+String(m).padStart(2,'0');
   document.getElementById('todayPanel').style.display='none';
   render();
 }
 
-/* ---------- आजचा हिशोब ---------- */
 function showToday(){
-  const t = todayStr();
-  const d = mdata(curMonth);
-  const todayExp = d.expense.filter(x=>x.date===t);
-  const todayTotal = todayExp.reduce((s,x)=>s+x.amt,0);
-  const monthExp = d.expense.reduce((s,x)=>s+x.amt,0);
-  const inc = d.income.reduce((s,x)=>s+x.amt,0);
-  const bal = inc - monthExp;
-
-  const dd = new Date();
-  document.getElementById('tpDate').textContent =
-    '📅 '+dd.getDate()+' '+MN[dd.getMonth()]+' '+dd.getFullYear();
-
+  const t=todayStr();
+  const d=mdata(curMonth);
+  const todayExp=d.expense.filter(x=>x.date===t);
+  const todayTotal=todayExp.reduce((s,x)=>s+x.amt,0);
+  const monthExp=d.expense.reduce((s,x)=>s+x.amt,0);
+  const inc=d.income.reduce((s,x)=>s+x.amt,0);
+  const bal=inc-monthExp;
+  const dd=new Date();
+  document.getElementById('tpDate').textContent='📅 '+dd.getDate()+' '+MN[dd.getMonth()]+' '+dd.getFullYear();
   const box=document.getElementById('tpList');
-  if(!todayExp.length){
-    box.innerHTML='<div class="empty">आज अजून खर्च नोंदवलेला नाही</div>';
-  }else{
-    box.innerHTML = todayExp.map(x=>`
-      <div class="sumrow"><span>${esc(x.name)}</span><b class="red">${money(x.amt)}</b></div>
-    `).join('');
-  }
-  document.getElementById('tpToday').textContent = money(todayTotal);
-  document.getElementById('tpMonth').textContent = money(monthExp);
-  document.getElementById('tpBal').textContent = money(bal);
-
+  if(!todayExp.length){box.innerHTML='<div class="empty">आज अजून खर्च नोंदवलेला नाही</div>';}
+  else{box.innerHTML=todayExp.map(x=>`<div class="sumrow"><span>${esc(x.name)}</span><b class="red">${money(x.amt)}</b></div>`).join('');}
+  document.getElementById('tpToday').textContent=money(todayTotal);
+  document.getElementById('tpMonth').textContent=money(monthExp);
+  document.getElementById('tpBal').textContent=money(bal);
   const p=document.getElementById('todayPanel');
   p.style.display='block';
   p.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
-/* ---------- मराठी अंक ओळख ---------- */
-const NUM={
- 'एक':1,'दोन':2,'तीन':3,'चार':4,'पाच':5,'सहा':6,'सात':7,'आठ':8,'नऊ':9,'दहा':10,
- 'अकरा':11,'बारा':12,'तेरा':13,'चौदा':14,'पंधरा':15,'सोळा':16,'सतरा':17,'अठरा':18,'एकोणीस':19,'वीस':20,
- 'एकवीस':21,'बावीस':22,'तेवीस':23,'चोवीस':24,'पंचवीस':25,'सव्वीस':26,'सत्तावीस':27,'अठ्ठावीस':28,'एकोणतीस':29,
- 'तीस':30,'एकतीस':31,'बत्तीस':32,'तेहतीस':33,'चौतीस':34,'पस्तीस':35,'छत्तीस':36,'सदतीस':37,'अडतीस':38,'एकोणचाळीस':39,
- 'चाळीस':40,'एकचाळीस':41,'बेचाळीस':42,'तेचाळीस':43,'चव्वेचाळीस':44,'पंचेचाळीस':45,'सेहेचाळीस':46,'सत्तेचाळीस':47,'अठ्ठेचाळीस':48,'एकोणपन्नास':49,
- 'पन्नास':50,'साठ':60,'सत्तर':70,'ऐंशी':80,'नव्वद':90,
- 'शंभर':100,'शे':100,'शेकडा':100,'हजार':1000,'लाख':100000
-};
+/* ---------- मराठी अंक ---------- */
+const NUM={'एक':1,'दोन':2,'तीन':3,'चार':4,'पाच':5,'सहा':6,'सात':7,'आठ':8,'नऊ':9,'दहा':10,'अकरा':11,'बारा':12,'तेरा':13,'चौदा':14,'पंधरा':15,'सोळा':16,'सतरा':17,'अठरा':18,'एकोणीस':19,'वीस':20,'एकवीस':21,'बावीस':22,'तेवीस':23,'चोवीस':24,'पंचवीस':25,'सव्वीस':26,'सत्तावीस':27,'अठ्ठावीस':28,'एकोणतीस':29,'तीस':30,'एकतीस':31,'बत्तीस':32,'तेहतीस':33,'चौतीस':34,'पस्तीस':35,'छत्तीस':36,'सदतीस':37,'अडतीस':38,'एकोणचाळीस':39,'चाळीस':40,'एकचाळीस':41,'बेचाळीस':42,'तेचाळीस':43,'चव्वेचाळीस':44,'पंचेचाळीस':45,'सेहेचाळीस':46,'सत्तेचाळीस':47,'अठ्ठेचाळीस':48,'एकोणपन्नास':49,'पन्नास':50,'साठ':60,'सत्तर':70,'ऐंशी':80,'नव्वद':90,'शंभर':100,'शे':100,'शेकडा':100,'हजार':1000,'लाख':100000};
 
 function parseMarathiNumber(text){
-  const dig = text.match(/\d+/);
+  const dig=text.match(/\d+/);
   if(dig) return parseInt(dig[0]);
-
-  let t = ' '+text.replace(/शे/g,' शे ').replace(/शंभर/g,' शंभर ')+' ';
-  const tokens = t.split(/\s+/).filter(Boolean);
-  let total=0, cur=0, found=false;
-
+  let t=' '+text.replace(/शे/g,' शे ').replace(/शंभर/g,' शंभर ')+' ';
+  const tokens=t.split(/\s+/).filter(Boolean);
+  let total=0,cur=0,found=false;
   for(const tok of tokens){
-    const v = NUM[tok];
+    const v=NUM[tok];
     if(v===undefined) continue;
     found=true;
-    if(v>=1000){ cur=(cur||1)*v; total+=cur; cur=0; }
-    else if(v===100){ cur=(cur||1)*100; }
-    else { cur+=v; }
+    if(v>=1000){cur=(cur||1)*v;total+=cur;cur=0;}
+    else if(v===100){cur=(cur||1)*100;}
+    else {cur+=v;}
   }
   total+=cur;
-  return found ? total : null;
+  return found?total:null;
 }
 
-/* ---------- आवाज ओळख ---------- */
-const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 let rec=null;
 
-function startVoice(fieldId, isNumber){
-  if(!SR){ toast('या ब्राउझरमध्ये आवाज सुविधा नाही. Chrome वापरा.'); return; }
-
-  if(rec){ try{rec.stop();}catch(e){} }
-
-  rec = new SR();
-  rec.lang = 'mr-IN';
-  rec.interimResults = false;
-  rec.maxAlternatives = 1;
-
-  const btn = event.target;
+function startVoice(fieldId,isNumber){
+  if(!SR){toast('या ब्राउझरमध्ये आवाज सुविधा नाही. Chrome वापरा.');return;}
+  if(rec){try{rec.stop();}catch(e){}}
+  rec=new SR();
+  rec.lang='mr-IN';
+  rec.interimResults=false;
+  rec.maxAlternatives=1;
+  const btn=event.target;
   btn.classList.add('rec');
-
-  rec.onresult = (e)=>{
-    const txt = e.results[0][0].transcript.trim();
-    const el = document.getElementById(fieldId);
-
+  rec.onresult=(e)=>{
+    const txt=e.results[0][0].transcript.trim();
+    const el=document.getElementById(fieldId);
     if(isNumber){
-      const num = parseMarathiNumber(txt);
-      if(num){ el.value = num; toast('🔢 '+num); }
-      else { toast('आकडा ओळखता आला नाही: '+txt); }
+      const num=parseMarathiNumber(txt);
+      if(num){el.value=num;toast('🔢 '+num);}
+      else{toast('आकडा ओळखता आला नाही: '+txt);}
     } else {
-      el.value = txt;
+      el.value=txt;
       toast('✔ '+txt);
-      const num = parseMarathiNumber(txt);
+      const num=parseMarathiNumber(txt);
       if(num){
-        const amtField = fieldId==='incName' ? 'incAmt' :
-                         fieldId==='expName' ? 'expAmt' :
-                         fieldId==='loanName' ? 'loanAmt' : null;
+        const amtField=fieldId==='incName'?'incAmt':fieldId==='expName'?'expAmt':fieldId==='loanName'?'loanAmt':null;
         if(amtField){
-          const amtEl = document.getElementById(amtField);
-          if(!amtEl.value){ amtEl.value = num; }
+          const amtEl=document.getElementById(amtField);
+          if(!amtEl.value){amtEl.value=num;}
         }
       }
     }
   };
-
-  rec.onerror = ()=>{ toast('आवाज ऐकू आला नाही, पुन्हा प्रयत्न करा'); };
-  rec.onend = ()=>{ btn.classList.remove('rec'); };
-
+  rec.onerror=()=>{toast('आवाज ऐकू आला नाही, पुन्हा प्रयत्न करा');};
+  rec.onend=()=>{btn.classList.remove('rec');};
   btn.classList.remove('rec');
   setTimeout(()=>btn.classList.add('rec'),10);
   rec.start();
   toast('🎤 बोला...');
 }
 
-/* ---------- टोस्ट ---------- */
 let toastT=null;
 function toast(msg){
   const el=document.getElementById('toast');
@@ -498,7 +717,6 @@ function toast(msg){
   toastT=setTimeout(()=>el.classList.remove('show'),2200);
 }
 
-/* ---------- सुरू ---------- */
 render();
 </script>
 </body>
