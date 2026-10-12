@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>घरखर्च वही</title>
+<title>DGN Digital Assistant - घरखर्च वही</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:'Noto Sans Devanagari','Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#dfe9f3 0%,#eef1f6 50%,#d9e4f0 100%);color:#1b1b1b;padding-bottom:60px;perspective:1200px}
-header{background:linear-gradient(145deg,#2196f3,#0d47a1);color:#fff;padding:16px;text-align:center;font-size:21px;font-weight:800;position:sticky;top:0;z-index:20;letter-spacing:.5px;box-shadow:0 6px 20px rgba(13,71,161,.45), inset 0 1px 0 rgba(255,255,255,.25), inset 0 -2px 6px rgba(0,0,0,.25);text-shadow:0 2px 4px rgba(0,0,0,.35);border-bottom:2px solid #0a3d91}
-.monthbar{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(145deg,#ffffff,#e8eef7);padding:11px 14px;position:sticky;top:56px;z-index:19;box-shadow:0 4px 12px rgba(13,71,161,.18), inset 0 1px 0 #fff, inset 0 -2px 4px rgba(0,0,0,.06);border-bottom:1px solid #c9d6e8}
+body{margin:0;font-family:'Noto Sans Devanagari','Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#dfe9f3 0%,#eef1f6 50%,#d9e4f0 100%);color:#1b1b1b;padding-bottom:30px;perspective:1200px}
+header{background:linear-gradient(145deg,#2196f3,#0d47a1);color:#fff;padding:20px 16px;text-align:center;position:sticky;top:0;z-index:20;box-shadow:0 8px 24px rgba(13,71,161,.5), inset 0 2px 0 rgba(255,255,255,.3), inset 0 -3px 8px rgba(0,0,0,.3);border-bottom:3px solid #0a3d91}
+header .brand{font-size:26px;font-weight:900;letter-spacing:1.5px;text-shadow:0 3px 6px rgba(0,0,0,.45), 0 1px 0 rgba(255,255,255,.25);line-height:1.15}
+header .sub{font-size:13px;font-weight:600;margin-top:4px;opacity:.92;letter-spacing:.5px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.monthbar{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(145deg,#ffffff,#e8eef7);padding:11px 14px;position:sticky;top:88px;z-index:19;box-shadow:0 4px 12px rgba(13,71,161,.18), inset 0 1px 0 #fff, inset 0 -2px 4px rgba(0,0,0,.06);border-bottom:1px solid #c9d6e8}
 .monthbar span{font-weight:800;font-size:17px;color:#0d47a1;text-shadow:0 1px 1px rgba(255,255,255,.8)}
 .monthbar button{border:none;background:linear-gradient(145deg,#e3f2fd,#bbdefb);color:#0d47a1;font-size:18px;width:42px;height:42px;border-radius:50%;cursor:pointer;font-weight:800;box-shadow:0 4px 10px rgba(13,71,161,.3), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 4px rgba(0,0,0,.1);transition:.1s}
 .monthbar button:active{transform:translateY(2px);box-shadow:0 1px 3px rgba(13,71,161,.3), inset 0 2px 4px rgba(0,0,0,.15)}
@@ -100,6 +102,18 @@ ul.list li:last-child{border-bottom:none}
 .rec b{font-size:15px}
 .rec .meta{font-size:11px;color:#888;margin-top:2px}
 .rec .amt-wrap{text-align:right}
+.memory-box{background:linear-gradient(145deg,#fff3e0,#ffe0b2);border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:inset 0 3px 8px rgba(0,0,0,.12), inset 0 -1px 0 rgba(255,255,255,.6), 0 4px 12px rgba(230,81,0,.2);border-left:5px solid #ff9800}
+.memory-box .mlabel{font-size:13px;color:#4e342e;font-weight:700;margin-bottom:6px}
+.memory-box .mval{font-size:19px;font-weight:900;color:#e65100;margin-bottom:8px;text-shadow:0 1px 1px rgba(255,255,255,.6)}
+.mem-bar{height:14px;background:linear-gradient(145deg,#ffe0b2,#ffcc80);border-radius:7px;overflow:hidden;box-shadow:inset 0 2px 5px rgba(0,0,0,.2)}
+.mem-bar div{height:100%;background:linear-gradient(145deg,#66bb6a,#2e7d32);transition:width .4s;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.mem-bar.warn div{background:linear-gradient(145deg,#ffa726,#e65100)}
+.mem-bar.danger div{background:linear-gradient(145deg,#ef5350,#b71c1c)}
+.btn-reset{background:linear-gradient(145deg,#ef5350,#b71c1c);color:#fff;width:100%;padding:16px;border:none;border-radius:14px;font-size:16px;font-weight:900;font-family:inherit;cursor:pointer;letter-spacing:.5px;margin-top:12px;box-shadow:0 7px 20px rgba(183,28,28,.5), inset 0 2px 0 rgba(255,255,255,.3), inset 0 -4px 8px rgba(0,0,0,.3);text-shadow:0 2px 3px rgba(0,0,0,.35);transition:.12s}
+.btn-reset:active{transform:translateY(4px);box-shadow:0 2px 6px rgba(183,28,28,.5), inset 0 4px 8px rgba(0,0,0,.35)}
+footer{margin:20px 14px 10px;padding:16px;text-align:center;background:linear-gradient(145deg,#f5f8fc,#e8eef7);border-radius:14px;box-shadow:inset 0 2px 5px rgba(0,0,0,.06), inset 0 -1px 0 #fff;border:1px solid rgba(255,255,255,.9)}
+footer .fname{font-size:12px;color:#555;font-weight:600;letter-spacing:.3px;line-height:1.7}
+footer .fname b{color:#0d47a1;font-weight:800}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:linear-gradient(145deg,#455a64,#263238);color:#fff;padding:14px 24px;border-radius:30px;font-size:15px;opacity:0;transition:.3s;pointer-events:none;z-index:99;white-space:nowrap;max-width:90%;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.2)}
 .toast.show{opacity:1;bottom:44px}
 .hint{font-size:12px;color:#666;margin-top:8px;line-height:1.6;font-style:italic}
@@ -107,7 +121,10 @@ ul.list li:last-child{border-bottom:none}
 </head>
 <body>
 
-<header>🏠 घरखर्च वही</header>
+<header>
+  <div class="brand">DGN Digital Assistant</div>
+  <div class="sub">🏠 घरखर्च वही</div>
+</header>
 
 <div class="monthbar">
   <button onclick="changeMonth(-1)">◀</button>
@@ -121,7 +138,7 @@ ul.list li:last-child{border-bottom:none}
   <div class="card full"><div class="lbl">शिल्लक रक्कम</div><div class="val" id="cBalance">₹0</div></div>
 </div>
 
-<!-- 🔍 शोध - Collapsible -->
+<!-- 🔍 शोध -->
 <div class="section">
   <div class="sec-head" onclick="toggleSec('searchBody',this)">
     <h3><span class="dot" style="background:#1565c0"></span> 🔍 नोंदी शोधा</h3>
@@ -164,7 +181,7 @@ ul.list li:last-child{border-bottom:none}
   </div>
 </div>
 
-<!-- 💾 बॅकअप - Collapsible -->
+<!-- 💾 बॅकअप -->
 <div class="section">
   <div class="sec-head" onclick="toggleSec('backupBody',this)">
     <h3><span class="dot" style="background:#00acc1"></span> डेटा बॅकअप / परत आणा</h3>
@@ -260,6 +277,26 @@ ul.list li:last-child{border-bottom:none}
   </div>
 </div>
 
+<!-- 🧠 मेमरी आणि रिसेट - सर्वात खाली -->
+<div class="section">
+  <h3><span class="dot" style="background:#607d8b"></span> 🧠 मेमरी वापर</h3>
+  <div class="memory-box">
+    <div class="mlabel">वापरलेली मेमरी</div>
+    <div class="mval" id="memUsed">—</div>
+    <div class="mem-bar" id="memBarWrap"><div id="memBar" style="width:0%"></div></div>
+    <div class="hint" style="margin-top:8px">एकूण उपलब्ध: सुमारे 5 MB · नोंदी: <b id="memRecords">0</b></div>
+  </div>
+  <button class="btn-reset" onclick="resetAll()">🗑️ सर्व डेटा डिलीट करा (रिसेट)</button>
+  <div class="hint">⚠️ रिसेट केल्यावर सर्व नोंदी कायमच्या जातील. आधी <b>"💾 बॅकअप घ्या"</b> करा!</div>
+</div>
+
+<footer>
+  <div class="fname">
+    <b>Girish Netake</b><br>
+    मो. <b>9822859913</b>
+  </div>
+</footer>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -274,6 +311,45 @@ function mdata(m){if(!db.months[m])db.months[m]={income:[],expense:[]};return db
 function money(n){return '₹'+Number(n||0).toLocaleString('en-IN');}
 function fmtDate(s){const[y,m,d]=s.split('-');return d+'/'+m+'/'+y;}
 let curMonth=todayStr().slice(0,7);
+
+function updateMemory(){
+  const str=JSON.stringify(db);
+  const bytes=new Blob([str]).size;
+  const kb=bytes/1024;
+  const mb=kb/1024;
+  let display;
+  if(mb>=0.1) display=mb.toFixed(2)+' MB';
+  else if(kb>=1) display=kb.toFixed(1)+' KB';
+  else display=bytes+' बाइट्स';
+  document.getElementById('memUsed').textContent=display;
+  const maxBytes=5*1024*1024;
+  const pct=Math.min(100,(bytes/maxBytes)*100);
+  document.getElementById('memBar').style.width=pct+'%';
+  const barWrap=document.getElementById('memBarWrap');
+  barWrap.classList.remove('warn','danger');
+  if(pct>75) barWrap.classList.add('danger');
+  else if(pct>50) barWrap.classList.add('warn');
+  let count=0;
+  Object.keys(db.months).forEach(mk=>{
+    count += (db.months[mk].income||[]).length + (db.months[mk].expense||[]).length;
+  });
+  (db.loans||[]).forEach(l=>{
+    count += 1 + (l.payments||[]).length;
+  });
+  document.getElementById('memRecords').textContent=count;
+}
+
+function resetAll(){
+  if(!confirm('⚠️ सर्व डेटा कायमचा डिलीट होईल!\n\nआधी बॅकअप घेतला आहे का?\n\nरिसेट करायचे?')) return;
+  if(!confirm('🚨 शेवटची खात्री: सर्व नोंदी जातील. पुढे जायचे?')) return;
+  localStorage.removeItem(KEY);
+  db={months:{},loans:[]};
+  save();
+  render();
+  document.getElementById('todayPanel').style.display='none';
+  document.getElementById('searchResult').style.display='none';
+  toast('✅ सर्व डेटा रिसेट झाला');
+}
 
 function toggleSec(id,headEl){
   const body=document.getElementById(id);
@@ -431,7 +507,7 @@ function addLoan(){
   if(!amt||amt<=0){toast('रक्कम टाका किंवा बोला');return;}
   db.loans.push({id:Date.now()+''+Math.floor(Math.random()*999),name,total:amt,payments:[],created:todayStr(),ts:Date.now()});
   nEl.value='';aEl.value='';
-  renderLoans();save();
+  renderLoans();save();updateMemory();
   toast('✅ देणे नोंदवले');
 }
 
@@ -446,14 +522,14 @@ function payLoan(id){
   if(amt>remain){if(!confirm('शिल्लक पेक्षा जास्त रक्कम आहे. तरी नोंदवायचे?')) return;}
   loan.payments.push({amt,date:todayStr(),ts:Date.now()});
   input.value='';
-  renderLoans();save();
+  renderLoans();save();updateMemory();
   toast('✅ '+money(amt)+' दिले');
 }
 
 function delLoan(id){
   if(!confirm('ही नोंद कायमची हटवायची?')) return;
   db.loans=db.loans.filter(l=>l.id!==id);
-  renderLoans();save();
+  renderLoans();save();updateMemory();
   toast('हटवले');
 }
 
@@ -497,6 +573,7 @@ function render(){
   drawList('expList',d.expense,'expense','#c62828');
   renderLoans();
   save();
+  updateMemory();
 }
 
 function drawList(id,arr,type,color){
